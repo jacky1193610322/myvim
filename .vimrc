@@ -102,12 +102,17 @@ if 'VIRTUAL_ENV' in os.environ:
 EOF
 
 """""""""""""""""""""""
-nmap <Leader>b :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <Leader>[ <C-I>
-nnoremap <Leader>] <C-O>
+nmap <Leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nmap <Leader>gf :YcmCompleter GoToReferences<CR>
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+
+"配置tagbar
+nmap <F9> :TagbarToggle<CR>
+" 启动时自动focus
+let g:tagbar_autofocus = 1

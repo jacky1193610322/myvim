@@ -116,3 +116,5 @@ nnoremap <C-H> <C-W><C-H>
 nmap <F9> :TagbarToggle<CR>
 " 启动时自动focus
 let g:tagbar_autofocus = 1
+
+nnoremap <silent><C-t> :CtrlSpace O<CR>

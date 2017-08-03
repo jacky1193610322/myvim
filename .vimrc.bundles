@@ -20,9 +20,20 @@ Bundle 'vim-scripts/Mark--Karkat'
 " Bundle 'danro/rename.vim'
 " Bundle 'majutsushi/tagbar'
 " Bundle 'kchmck/vim-coffee-script'
+" Bundle 'Shougo/unite.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'majutsushi/tagbar'
+"Bundle 'Shougo/vimproc.vim', {
+"\ 'build' : {
+"\     'windows' : 'tools\\update-dll-mingw',
+"\     'cygwin' : 'make -f make_cygwin.mak',
+"\     'mac' : 'make',
+"\     'linux' : 'make',
+"\     'unix' : 'gmake',
+"\    },
+"\ }
+Bundle 'shougo/vimshell'
 "Plugin 'grep.vim' 
 "Bundle 'pbrisbin/vim-mkdir'
 Bundle 'scrooloose/syntastic'

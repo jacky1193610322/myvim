@@ -29,7 +29,7 @@ endif
 nnoremap <silent> <F5> :NERDTreeTabsToggle<CR>
 let mapleader=","
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
-
+map <silent> <Leader>c <Plug>MarkClear
 """"""""""""""""""""" vim标签配置 begin """"""""""""""""""""""
 " 显示标签页顺序，便于切换标签页，如需要切换到编号为3的标签页，按 3gt 即可
 "if exists("+showtabline")

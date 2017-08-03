@@ -8,7 +8,7 @@ call vundle#rc()
 
 " Let Vundle manage Vundle
 Bundle 'gmarik/vundle'
-
+Bundle 'scrooloose/nerdcommenter'
 " Define bundles via Github repos
 " Bundle 'christoomey/vim-run-interactive'
 Bundle 'Valloric/YouCompleteMe'
@@ -16,6 +16,8 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'dyng/ctrlsf.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'vim-scripts/Mark--Karkat'
+Bundle 'Raimondi/delimitMate'
+Bundle "tpope/vim-repeat"
 "Plugin 'vim-ctrlspace/vim-ctrlspace'
 " Bundle 'danro/rename.vim'
 " Bundle 'majutsushi/tagbar'
@@ -100,3 +102,11 @@ endif
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
+" 配置delimitmate
+" for python docstring ", 特别有用
+au FileType python let b:delimitMate_nesting_quotes = ['"']
+" 关闭某些类型文件的自动补全
+"au FileType mail let b:delimitMate_autoclose = 0
+
+" nertcommenter需要的配置
+filetype plugin on

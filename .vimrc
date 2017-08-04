@@ -104,7 +104,7 @@ EOF
 """""""""""""""""""""""
 nmap <Leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <Leader>gf :YcmCompleter GoToReferences<CR>
-nmap <Leader>ag :Ag
+nmap <Leader>ag :Ag 
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -121,3 +121,8 @@ let g:tagbar_autofocus = 1
 " 这个快捷键是synstatic的快捷键 分别是找到上一个错误 下一个错误
 nnoremap <silent>sp :lprev <CR>
 nnoremap <silent>sn :lnext<CR>
+
+" youcompleteme的配置
+if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
+    let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+endif

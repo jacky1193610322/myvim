@@ -104,6 +104,7 @@ EOF
 """""""""""""""""""""""
 nmap <Leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <Leader>gf :YcmCompleter GoToReferences<CR>
+nmap <Leader>ag :Ag
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -117,4 +118,6 @@ nmap <F9> :TagbarToggle<CR>
 " 启动时自动focus
 let g:tagbar_autofocus = 1
 
-nnoremap <silent><C-t> :CtrlSpace O<CR>
+" 这个快捷键是synstatic的快捷键 分别是找到上一个错误 下一个错误
+nnoremap <silent>sp :lprev <CR>
+nnoremap <silent>sn :lnext<CR>

@@ -84,7 +84,7 @@ set clipboard=unnamed
 let g:Powerline_symbols='fancy'
 
 " ignore some files in NERDTree
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree  
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
 
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -104,7 +104,7 @@ EOF
 """""""""""""""""""""""
 nmap <Leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <Leader>gf :YcmCompleter GoToReferences<CR>
-nmap <Leader>ag :Ag 
+nmap <Leader>ag :Ag
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -119,6 +119,24 @@ nmap <F9> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 
 " 这个快捷键是synstatic的快捷键 分别是找到上一个错误 下一个错误
+function! <SID>LocationPrevious()
+try
+    lprev
+catch /^Vim\%((\a\+)\)\=:E553/
+    llast
+endtry
+endfunction
+
+function! <SID>LocationNext()
+try
+    lnext
+catch /^Vim\%((\a\+)\)\=:E553/
+    lfirst
+endtry
+endfunction
+
+nnoremap <silent> <Plug>LocationPrevious    :<C-u>exe 'call <SID>LocationPrevious()'<CR>
+nnoremap <silent> <Plug>LocationNext        :<C-u>exe 'call <SID>LocationNext()'<CR>
 nnoremap <silent>sp :lprev <CR>
 nnoremap <silent>sn :lnext<CR>
 
@@ -126,3 +144,30 @@ nnoremap <silent>sn :lnext<CR>
 if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
     let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
 endif
+
+" 设置选中代码缩进的快捷键
+vnoremap <tab> >gv
+vnoremap <s-tab> <gv
+
+"Bundle之后安装, 仅仅是安装, 要启用哪个主题, 需要在vimrc中显式指定
+
+" colorscheme molokai
+" colorscheme desert
+"syntax enable
+"set background=dark
+"colorscheme solarized
+
+"ctrlp buffer 配置
+nnoremap <leader>b :CtrlPBuffer<CR>
+
+"bronson/vim-trailing-whitespace 的配置
+nnoremap <silent> <leader><space> :FixWhitespace<CR>
+
+" Nerdtree配置
+nnoremap <leader>f :NERDTreeFind<CR>
+
+" 可以不重启vim加载配置
+noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+
+" 忘记了sudo
+cnoremap w!! w !sudo tee > /dev/null %

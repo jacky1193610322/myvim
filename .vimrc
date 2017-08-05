@@ -30,52 +30,6 @@ nnoremap <silent> <F5> :NERDTreeTabsToggle<CR>
 let mapleader=","
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 map <silent> <Leader>c <Plug>MarkClear
-""""""""""""""""""""" vim标签配置 begin """"""""""""""""""""""
-" 显示标签页顺序，便于切换标签页，如需要切换到编号为3的标签页，按 3gt 即可
-"if exists("+showtabline")
-"    function! MyTabLine()
-"        let s = ''
-"        let t = tabpagenr()
-"        let i = 1
-"        while i <= tabpagenr('$')
-"            let buflist = tabpagebuflist(i)
-"            let winnr = tabpagewinnr(i)
-"            let s .= '%' . i . 'T'
-"            let s .= (i == t ? '%1*' : '%2*')
-"            let s .= ' '
-"            let s .= i . ')'
-"            let s .= '%*'
-"            let s .= (i == t ? '%#TabLineSel#' : '%#TabLine#' )
-"            let file = bufname(buflist[winnr - 1])
-"            let file = fnamemodify(file, ':p:t')
-"            if file == ''
-"                let file = '[NEW]'
-"            else
-"                let m = 0       " &modified counter
-"                let bc = len(tabpagebuflist(i))     "counter to avoid last ' '
-"                " loop through each buffer in a tab
-"                for b in tabpagebuflist(i)
-"                    " check and ++ tab's &modified count
-"                    if getbufvar( b, "&modified" )
-"                        let m += 1
-"                        break
-"                    endif
-"                endfor
-"                " add modified label + where n pages in tab are modified
-"                if m > 0
-"                    let file = '+ '.file
-"                endif
-"            endif
-"            let s .= ' '.file.' '
-"            let i = i + 1
-"        endwhile
-"        let s .= '%T%#TabLineFill#%='
-"        let s .= (tabpagenr('$') > 1 ? '%999XX' : 'X')
-"        return s
-"    endfunction
-"    set stal=2
-"    set tabline=%!MyTabLine()
-"endif
 
 """"""""""""""""""""" vim标签配置 end """"""""""""""""""""""
 set encoding=utf-8
@@ -118,27 +72,12 @@ nmap <F9> :TagbarToggle<CR>
 " 启动时自动focus
 let g:tagbar_autofocus = 1
 
-" 这个快捷键是synstatic的快捷键 分别是找到上一个错误 下一个错误
-function! <SID>LocationPrevious()
-try
-    lprev
-catch /^Vim\%((\a\+)\)\=:E553/
-    llast
-endtry
-endfunction
+"普Vim插件之ale通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
+nmap sp <Plug>(ale_previous_wrap)
+nmap sn <Plug>(ale_next_wrap)
 
-function! <SID>LocationNext()
-try
-    lnext
-catch /^Vim\%((\a\+)\)\=:E553/
-    lfirst
-endtry
-endfunction
-
-nnoremap <silent> <Plug>LocationPrevious    :<C-u>exe 'call <SID>LocationPrevious()'<CR>
-nnoremap <silent> <Plug>LocationNext        :<C-u>exe 'call <SID>LocationNext()'<CR>
-nnoremap <silent>sp :lprev <CR>
-nnoremap <silent>sn :lnext<CR>
+"<Leader>s触发/关闭语法检查
+nmap <silent> <Leader>s :ALEToggle<CR>
 
 " youcompleteme的配置
 if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
@@ -171,3 +110,5 @@ noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo '
 
 " 忘记了sudo
 cnoremap w!! w !sudo tee > /dev/null %
+noremap \ ,
+

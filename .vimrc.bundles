@@ -9,15 +9,26 @@ call vundle#rc()
 " Let Vundle manage Vundle
 Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdcommenter'
+Bundle 'miyakogi/conoline.vim'
+" Bundle 'inside/vim-search-pulse'
 " Define bundles via Github repos
 " Bundle 'christoomey/vim-run-interactive'
 Bundle 'Valloric/YouCompleteMe'
 " Bundle 'croaky/vim-colors-github'
+Bundle 'kien/rainbow_parentheses.vim'
+" 主题 solarized
+" solarized
+" Bundle 'altercation/vim-colors-solarized'
+" molokai
+" 主题 molokai
+Bundle 'tomasr/molokai'
+Bundle 'bronson/vim-trailing-whitespace'
 Bundle 'dyng/ctrlsf.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'vim-scripts/Mark--Karkat'
 Bundle 'Raimondi/delimitMate'
 Bundle "tpope/vim-repeat"
+Bundle "tpope/vim-fugitive"
 "Plugin 'vim-ctrlspace/vim-ctrlspace'
 " Bundle 'danro/rename.vim'
 " Bundle 'majutsushi/tagbar'
@@ -36,9 +47,12 @@ Bundle 'majutsushi/tagbar'
 "\    },
 "\ }
 Bundle 'shougo/vimshell'
-"Plugin 'grep.vim' 
+"Plugin 'grep.vim'
 "Bundle 'pbrisbin/vim-mkdir'
-Bundle 'scrooloose/syntastic'
+"Bundle 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
+" Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
 Bundle 'rking/ag.vim'
 "Bundle 'slim-template/vim-slim'
 "Bundle 'thoughtbot/vim-rspec'
@@ -56,6 +70,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Bundle "tpope/vim-surround"
 "Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 "'Bundle 'Lokaltog/vim-powerline'
 "'Bundle 'godlygeek/tabular'
@@ -109,20 +124,72 @@ au FileType python let b:delimitMate_nesting_quotes = ['"']
 "au FileType mail let b:delimitMate_autoclose = 0
 
 " nertcommenter需要的配置
-filetype plugin on
+" filetype plugin on
 
 "syntastic 的官方推荐配置
-"
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_always_populate_loc_list = 1
+" syntastic 有问题不用了
+" let g:syntastic_python_checkers=['flake8']
+" let g:syntastic_python_flake8_args='--ignore=E501,E225,E124,E712,E116,E131'
+" let g:syntastic_mode_map = {'mode': 'active', 'passive_filetypes': ['java'] }
+" let g:syntastic_always_populate_loc_list=1
+" let g:syntastic_auto_loc_list=1
+" let g:syntastic_check_on_open=1
+" let g:syntastic_check_on_wq=0
+" autocmd BufWinLeave * if empty(&bt) | lclose | endif
 
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '⚠'
+
+" let g:syntastic_error_symbol = '✗'
+" let g:syntastic_warning_symbol = '⚠'
+
+" kien/rainbow_parentheses.vim的配置
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+"vim-colors-solarized的配置
+let g:solarized_termtrans=1
+let g:solarized_contrast="normal"
+let g:solarized_visibility="normal"
+
+"asl 的配置
+let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
+"显示Linter名称,出错或警告等相关信息
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 
+"文件内容发生变化时不进行检查
+" let g:ale_lint_on_text_changed = 'never'
+"打开文件时不进行检查
+let g:ale_enabled = 0
+"<Leader>s触发/关闭语法检查
+" ale的配置 Write this in your vimrc file
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_linters = {'python': ['flake8']}
+let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']

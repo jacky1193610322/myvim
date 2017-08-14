@@ -18,6 +18,7 @@ set cindent
 set softtabstop=4
 set expandtab
 syntax on
+let maplocalleader="/"
 
 filetype off
 set rtp+=~/.vim/bundle/vundle/
@@ -30,12 +31,24 @@ nnoremap <silent> <F5> :NERDTreeTabsToggle<CR>
 let mapleader=","
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 map <silent> <Leader>c <Plug>MarkClear
+" set hlsearch
+set ic            "搜索忽略大小写
+set incsearch     "逐步搜索，对当前键入的字符进行搜索而不需等待键入完成
+"highlight Search ctermbg=yellow ctermfg=black
+"highlight IncSearch ctermbg=black ctermfg=yellow
+"highlight MatchParen cterm=underline ctermbg=NONE ctermfg=NONE
 
 """"""""""""""""""""" vim标签配置 end """"""""""""""""""""""
 set encoding=utf-8
 "可以使用系统的粘贴板"
 set clipboard=unnamed
-let g:Powerline_symbols='fancy'
+" let g:Powerline_symbols='fancy'
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+" Enable folding with the spacebar
+nnoremap <space> za
 
 " ignore some files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
@@ -66,7 +79,11 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-
+" 上移下移
+nnoremap <Leader>j ddkP
+nnoremap <Leader>k ddp
+vnoremap <Leader>j dkP
+vnoremap <Leader>k dp
 "配置tagbar
 nmap <F9> :TagbarToggle<CR>
 " 启动时自动focus
@@ -75,7 +92,7 @@ let g:tagbar_autofocus = 1
 "普Vim插件之ale通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
 nmap sp <Plug>(ale_previous_wrap)
 nmap sn <Plug>(ale_next_wrap)
-
+" autocmd BufReadPost * \ if line("'\"")>0&&line("'\"")<=line("$") | \ exe "normal g'\"" | \ endif "让vim记忆上次编辑的位置
 "<Leader>s触发/关闭语法检查
 nmap <silent> <Leader>s :ALEToggle<CR>
 
@@ -106,9 +123,20 @@ nnoremap <silent> <leader><space> :FixWhitespace<CR>
 nnoremap <leader>f :NERDTreeFind<CR>
 
 " 可以不重启vim加载配置
-noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+noremap <silent> <Leader><Leader>r :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 " 忘记了sudo
 cnoremap w!! w !sudo tee > /dev/null %
 noremap \ ,
+
+" easy-mmotion的配置
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+
+" 忽略长度的告警
+let g:ale_python_flake8_args="--ignore='E501,E712' "
 

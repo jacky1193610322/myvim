@@ -140,3 +140,6 @@ let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 " 忽略长度的告警
 let g:ale_python_flake8_args="--ignore='E501,E712' "
 
+set t_Co=256
+set background=dark
+let g:conoline_color_normal_dark = 'ctermbg=236'

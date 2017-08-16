@@ -71,7 +71,7 @@ EOF
 """""""""""""""""""""""
 nmap <Leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <Leader>gf :YcmCompleter GoToReferences<CR>
-nmap <Leader>ag :Ag
+nmap <Leader>ag :Ag 
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -86,6 +86,7 @@ vnoremap <Leader>j dkP
 vnoremap <Leader>k dp
 "配置tagbar
 nmap <F9> :TagbarToggle<CR>
+noremap <Leader>t :TagbarToggle<CR>
 " 启动时自动focus
 let g:tagbar_autofocus = 1
 
@@ -143,3 +144,7 @@ let g:ale_python_flake8_args="--ignore='E501,E712' "
 set t_Co=256
 set background=dark
 let g:conoline_color_normal_dark = 'ctermbg=236'
+
+
+" nertcommenter 对其配置
+let NERDDefaultAlign = 'left'

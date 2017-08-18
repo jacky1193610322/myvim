@@ -1,7 +1,6 @@
 if &compatible
   set nocompatible
 end
-
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -10,6 +9,9 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'miyakogi/conoline.vim'
+" 更高效的行内移动, f/F/t/T, 才触发
+" quickscope
+" Bundle 'unblevable/quick-scope'
 " Bundle 'inside/vim-search-pulse'
 " Define bundles via Github repos
 " Bundle 'christoomey/vim-run-interactive'
@@ -115,9 +117,12 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
+let laststatus = 2
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme="deus"
-let g:airline#extensions#tabline#buffer_nr_show = 1
+" let g:airline_theme="deus"
+"let g:airline#extensions#tabline#buffer_nr_show = 1
+"let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+"let g:airline#extensions#tabline#show_tab_nr = 1
 " 要想使用箭头等 需要安装powerline－font 字体 要不然箭头什么回显示乱码
 " let g:airline_powerline_fonts = 1
 " 关闭状态显示空白符号计数,这个对我用处不大"
@@ -192,11 +197,41 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 "文件内容发生变化时不进行检查
 " let g:ale_lint_on_text_changed = 'never'
-"打开文件时不进行检查
-let g:ale_enabled = 0
+"打开文件时进行检查
+let g:ale_enabled = 1
 "<Leader>s触发/关闭语法检查
 " ale的配置 Write this in your vimrc file
 let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
+" 如果这个quickfix 不关闭的话 使用ag查询的时候 使用go命令预览 就会被替换
+let g:ale_set_quickfix = 0
 let g:ale_linters = {'python': ['flake8']}
 let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
+
+" ctrlsf {{{
+    let g:ctrlsf_position = 'bottom'
+    let g:ctrlsf_winsize = '30%'
+    let g:ctrlsf_auto_close = 0
+    let g:ctrlsf_confirm_save = 0
+    " Note: cannot use <CR> or <C-m> for open
+    " Use : <sapce> or <tab>
+    let g:ctrlsf_mapping = {
+        \ "open"  : "<CR>",
+        \ "openb" : "O",
+        \ "tab"   : "t",
+        \ "tabb"  : "T",
+        \ "prevw" : "p",
+        \ "quit"  : "q",
+        \ "next"  : "<C-J>",
+        \ "prev"  : "<C-K>",
+        \ "pquit" : "q",
+        \ }
+" }}}
+
+" youcompleteMe{{{
+    " 回车作为选中
+    let g:ycm_key_list_stop_completion = ['<CR>']
+" }}}
+
+" quickscope{{{
+    let g:qs_highlight_on_keys = ['f', 'F']
+"}}}

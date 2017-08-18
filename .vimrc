@@ -148,3 +148,36 @@ let g:conoline_color_normal_dark = 'ctermbg=236'
 
 " nertcommenter 对其配置
 let NERDDefaultAlign = 'left'
+
+
+" For regular expressions turn magic on
+set magic
+
+" vimrc文件修改之后自动加载, linux
+autocmd! bufwritepost .vimrc source %
+
+" In the quickfix window, <CR> is used to jump to the error under the
+" cursor, so undefine the mapping there.
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+" quickfix window  s/v to open in split window,  ,gd/,jd => quickfix window => open it
+autocmd BufReadPost quickfix nnoremap <buffer> v <C-w><Enter><C-w>L
+autocmd BufReadPost quickfix nnoremap <buffer> s <C-w><Enter><C-w>K
+
+" 进入搜索Use sane regexes"
+nnoremap / /\v
+vnoremap / /\v
+
+nmap \ <Plug>CtrlSFCwordPath<CR>
+
+" Gif config
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+
+" Move to line
+map f <Plug>(easymotion-sl)

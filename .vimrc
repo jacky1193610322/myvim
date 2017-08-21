@@ -79,12 +79,6 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" 上移下移
-nnoremap <Leader>j ddkP
-nnoremap <Leader>k ddp
-vnoremap <Leader>j dkP
-vnoremap <Leader>k dp
-"配置tagbar
 nmap <F9> :TagbarToggle<CR>
 noremap <Leader>t :TagbarToggle<CR>
 " 启动时自动focus
@@ -170,8 +164,7 @@ vnoremap / /\v
 nmap \ <Plug>CtrlSFCwordPath<CR>
 
 " Gif config
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
+map  / <Plug>(easymotion-sn)\v\c
 
 " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
 " Without these mappings, `n` & `N` works fine. (These mappings just provide
@@ -181,3 +174,9 @@ map  N <Plug>(easymotion-prev)
 
 " Move to line
 map f <Plug>(easymotion-sl)
+
+"上移下移操作
+nmap <S-j> <Plug>MoveLineDown
+nmap <S-k> <Plug>MoveLineUp
+vmap <S-k> <Plug>MoveBlockUp
+vmap <S-j> <Plug>MoveBlockDown

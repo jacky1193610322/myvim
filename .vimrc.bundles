@@ -9,6 +9,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'miyakogi/conoline.vim'
+Bundle "matze/vim-move"
+" Bundle 'romainl/vim-qf'
 " 更高效的行内移动, f/F/t/T, 才触发
 " quickscope
 " Bundle 'unblevable/quick-scope'
@@ -112,6 +114,7 @@ let g:ctrlp_extensions = ['funky']
 "set showtabline=0
 " 使用ag作为ctrlp的搜索
 if executable('ag')
+  let g:ackprg='ag --nogroup --nocolor --hidden -g  --nocolumn'
   set grepprg=ag\ --nogroup\ --nocolor
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
   let g:ctrlp_use_caching = 0
@@ -216,10 +219,10 @@ let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
     " Use : <sapce> or <tab>
     let g:ctrlsf_mapping = {
         \ "open"  : "<CR>",
-        \ "openb" : "O",
+        \ "openb" : "",
         \ "tab"   : "t",
         \ "tabb"  : "T",
-        \ "prevw" : "p",
+        \ "prevw" : ["<Space>", 'p'],
         \ "quit"  : "q",
         \ "next"  : "<C-J>",
         \ "prev"  : "<C-K>",
@@ -235,3 +238,13 @@ let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
 " quickscope{{{
     let g:qs_highlight_on_keys = ['f', 'F']
 "}}}
+
+" QfEnter{{{
+
+"}}}
+"" let g:ctrlsf_populate_qflist = 1
+ let g:ctrlsf_auto_close = 1
+" let g:ctrlsf_extra_backend_args = {
+""        \ 'ag': '-l --nocolor --hidden -g'
+""        \ }
+let g:ctrlsf_ackprg = '/usr/local/bin/ag'

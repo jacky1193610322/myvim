@@ -10,6 +10,12 @@ Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'miyakogi/conoline.vim'
 Bundle "matze/vim-move"
+Bundle 'CodeFalling/fcitx-vim-osx'
+"Bundle 'hongqn/vim-osx-ime', {*/
+"   \  'build' : {
+"   \    'mac' : 'make',
+"   \  },
+"   \}
 " Bundle 'romainl/vim-qf'
 " 更高效的行内移动, f/F/t/T, 才触发
 " quickscope

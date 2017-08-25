@@ -54,7 +54,6 @@ nnoremap <space> za
 " ignore some files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
-
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "上面的第一行确保了在你完成操作之后，自动补全窗口不会消失，第二行则定义了“转到定义”的快捷方式。
@@ -181,3 +180,4 @@ nmap <S-j> <Plug>MoveLineDown
 nmap <S-k> <Plug>MoveLineUp
 vmap <S-k> <Plug>MoveBlockUp
 vmap <S-j> <Plug>MoveBlockDown
+

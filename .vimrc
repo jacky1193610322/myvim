@@ -29,8 +29,9 @@ source ~/.vimrc.bundles
 endif
 nnoremap <silent> <F5> :NERDTreeTabsToggle<CR>
 let mapleader=","
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
-map <silent> <Leader>c <Plug>MarkClear
+map <silent> <Leader>n <Plug>NERDTreeTabsToggle<CR>
+map <silent> <leader>cm <Plug>MarkClear<CR>
+
 " set hlsearch
 set ic            "搜索忽略大小写
 set incsearch     "逐步搜索，对当前键入的字符进行搜索而不需等待键入完成
@@ -71,7 +72,7 @@ EOF
 """""""""""""""""""""""
 nmap <Leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <Leader>gf :YcmCompleter GoToReferences<CR>
-nmap <Leader>ag :Ag 
+nmap <Leader>ag :Ag<Space>
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>

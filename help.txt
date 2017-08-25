@@ -1,0 +1,4 @@
+在最新版本里面
+
+map的leader n与mark里面的一个冲突了 所以我改了mark里面的源码
+还有 leader 与nertcommenter冲突  所以我也改了里面的映射 <Leader>cm的映射

@@ -51,6 +51,7 @@ Bundle 'majutsushi/tagbar'
 "\    },
 "\ }
 Bundle 'shougo/vimshell'
+Bundle 'shougo/vimproc'
 "Plugin 'grep.vim'
 "Bundle 'pbrisbin/vim-mkdir'
 "Bundle 'scrooloose/syntastic'

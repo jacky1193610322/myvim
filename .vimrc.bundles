@@ -118,7 +118,7 @@ let python_highlight_all=1
 "nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
 "nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-let g:ctrlp_funky_syntax_highlight = 1
+let g:ctrlp_funky_syntax_highlight = 0
 
 let g:ctrlp_extensions = ['funky']
 
@@ -136,7 +136,11 @@ if executable('ag')
 endif
 
 let laststatus = 2
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
+call airline#parts#define_function('ALE', 'ALEGetStatusLine')
+call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
+let g:airline_section_error = airline#section#create_right(['ALE'])
+let g:airline_section_error = airline#section#create_right(['ALE'])
 " let g:airline_theme="deus"
 "let g:airline#extensions#tabline#buffer_nr_show = 1
 "let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
@@ -206,7 +210,7 @@ let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
 
 "asl 的配置
-let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
+let g:ale_statusline_format = ['✗ %d', '⚠  %d', '✔ OK']
 "显示Linter名称,出错或警告等相关信息
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -223,7 +227,7 @@ let g:ale_set_loclist = 0
 " 如果这个quickfix 不关闭的话 使用ag查询的时候 使用go命令预览 就会被替换
 let g:ale_set_quickfix = 0
 let g:ale_linters = {'python': ['flake8']}
-let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
+let g:ale_statusline_format = ['✗ %d', '⚠  %d', '✔ OK']
 
 " ctrlsf {{{
     let g:ctrlsf_position = 'bottom'
@@ -315,5 +319,5 @@ au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger 
 "}}}
 "
 "{{{ vim-trailiong-white-space
-let g:extra_whitespace_ignored_filetypes = ['ctrlsf', 'qf']
+let g:extra_whitespace_ignored_filetypes = ['ctrlsf', 'qf', 'ctrlp']
 "}}}

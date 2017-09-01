@@ -13,6 +13,8 @@ Bundle "matze/vim-move"
 Bundle 'CodeFalling/fcitx-vim-osx'
 Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
+Bundle 'tacahiroy/ctrlp-funky'
+Bundle 'lfv89/vim-interestingwords'
 "Bundle 'hongqn/vim-osx-ime', {*/
 "   \  'build' : {
 "   \    'mac' : 'make',
@@ -47,7 +49,6 @@ Bundle "tpope/vim-fugitive"
 " Bundle 'kchmck/vim-coffee-script'
 " Bundle 'Shougo/unite.vim'
 Bundle 'kien/ctrlp.vim'
-Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'majutsushi/tagbar'
 "Bundle 'Shougo/vimproc.vim', {
 "\ 'build' : {
@@ -103,8 +104,13 @@ Plugin 'vim-scripts/indentpython.vim'
 "  source ~/.vimrc.bundles
 " endif
 
+"ctrlp{{{
 filetype on
 let g:ctrlp_regexp = 1
+let g:ctrlp_funky_syntax_highlight = 1
+let g:ctrlp_max_height = 15
+let g:ctrlp_extensions = ['funky']
+"}}}
 " let g:nerdtree_tabs_open_on_console_startup=1
 let python_highlight_all=1
 
@@ -125,7 +131,7 @@ let g:ctrlp_extensions = ['funky']
 if executable('ag')
   let g:ackprg='ag --nogroup --nocolor --hidden -g  --nocolumn'
   set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+  let g:ctrlp_user_command = 'ag %s -l --nocolor  -g ""'
   let g:ctrlp_use_caching = 0
 endif
 

@@ -72,6 +72,7 @@ EOF
 nmap <Leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <Leader>gf :YcmCompleter GoToReferences<CR>
 nmap <Leader>ag :Ag<Space>
+nmap <Leader>sf :CtrlSF<Space>
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -89,8 +90,9 @@ nmap sp <Plug>(ale_previous_wrap)
 nmap sn <Plug>(ale_next_wrap)
 " autocmd BufReadPost * \ if line("'\"")>0&&line("'\"")<=line("$") | \ exe "normal g'\"" | \ endif "让vim记忆上次编辑的位置
 "<Leader>s触发/关闭语法检查
+"au Filetype * if (&ft!="python")|:ALEDisable|endif
+"au Filetype * if (&ft=="python")|:ALEEnable|endif
 nmap <silent> <Leader>s :ALEToggle<CR>
-
 " youcompleteme的配置
 if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
     let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
@@ -165,14 +167,12 @@ nmap \ <Plug>CtrlSFCwordPath<CR>
 
 " Gif config
 map  / <Plug>(easymotion-sn)\v\c
-
+let g:EasyMotion_smartcase = 1
 " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
 " Without these mappings, `n` & `N` works fine. (These mappings just provide
 " different highlight method and have some other features )
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
-
-" Move to line
+"map  n <Plug>(easymotion-next)
+"map  N <Plug>(easymotion-prev)
 map f <Plug>(easymotion-sl)
 
 "上移下移操作
@@ -180,4 +180,37 @@ nmap <S-j> <Plug>MoveLineDown
 nmap <S-k> <Plug>MoveLineUp
 vmap <S-k> <Plug>MoveBlockUp
 vmap <S-j> <Plug>MoveBlockDown
+"change word to uppercase, I love this very much
+inoremap <C-u> <esc>gUaw
 
+map <Leader>ru :CtrlPMRU<CR>
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+" 命令行模式增强，ctrl - a到行首， -e 到行尾
+cnoremap <C-j> <t_kd>
+cnoremap <C-k> <t_ku>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+"au BufReadPost quickfix :e ~/.vimrc.bundles<CR>
+"au CtrlPFunky * echo &bf
+" 使能ctrlp－funky的时候 如果开启ale的检查 那么ctrlp－funky会报错
+autocmd BufEnter ControlP let b:ale_enabled = 0
+"function DisableAle()
+"    let bnr = bufwinnr('2wincmd w')
+"    if bnr > 0
+"        :ALEEnable
+"    endif
+"endfunction
+"imap <Esc> <Esc><slient>:call DisableAle()<CR>
+""map <Esc> <Esc><silent>:call DisableAle()<CR>
+"au BufEnter ControlP :ALEDisable
+"let g:ale_filetype_blacklist = [
+"\   'dirvish',
+"\   'nerdtree',
+"\   'qf',
+"\   'tags',
+"\   'unite',
+"\   'ctrlp-funky',
+"\]
+""au BufLeave ControlP :ALEEnable

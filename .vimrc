@@ -135,7 +135,7 @@ map <Leader>h <Plug>(easymotion-linebackward)
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
 " 忽略长度的告警
-let g:ale_python_flake8_args="--ignore='E501,E712' "
+let g:ale_python_flake8_args="--ignore='E501,E712,W291' "
 
 set t_Co=256
 set background=dark
@@ -204,7 +204,8 @@ autocmd BufEnter ControlP let b:ale_enabled = 0
 "endfunction
 "imap <Esc> <Esc><slient>:call DisableAle()<CR>
 ""map <Esc> <Esc><silent>:call DisableAle()<CR>
-"au BufEnter ControlP :ALEDisable
+"au BufEnter __CtrlSF__  echo &ft
+"au BufLeave __CtrlSF__  :ToggleWhitespace
 "let g:ale_filetype_blacklist = [
 "\   'dirvish',
 "\   'nerdtree',

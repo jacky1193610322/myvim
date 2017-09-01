@@ -107,7 +107,7 @@ Plugin 'vim-scripts/indentpython.vim'
 "ctrlp{{{
 filetype on
 let g:ctrlp_regexp = 1
-let g:ctrlp_funky_syntax_highlight = 1
+let g:ctrlp_funky_syntax_highlight = 0
 let g:ctrlp_max_height = 15
 let g:ctrlp_extensions = ['funky']
 "}}}
@@ -312,4 +312,8 @@ if !exists("g:UltiSnipsJumpBackwardTrigger")
 endif
 au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
 au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
+"}}}
+"
+"{{{ vim-trailiong-white-space
+let g:extra_whitespace_ignored_filetypes = ['ctrlsf', 'qf']
 "}}}

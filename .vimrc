@@ -204,7 +204,8 @@ autocmd BufEnter ControlP let b:ale_enabled = 0
 "endfunction
 "imap <Esc> <Esc><slient>:call DisableAle()<CR>
 ""map <Esc> <Esc><silent>:call DisableAle()<CR>
-"au BufEnter __CtrlSF__  echo &ft
+"au Filetype ctrlsf   map <silent> <Esc> <Esc>:CtrlSFClose<CR>
+"au Filetype ctrlsf   imap <silent> <Esc> <Esc>:CtrlSFClose<CR>
 "au BufLeave __CtrlSF__  :ToggleWhitespace
 "let g:ale_filetype_blacklist = [
 "\   'dirvish',
@@ -215,3 +216,4 @@ autocmd BufEnter ControlP let b:ale_enabled = 0
 "\   'ctrlp-funky',
 "\]
 ""au BufLeave ControlP :ALEEnable
+"highlight IncSearch guibg=green ctermbg=green term=underline

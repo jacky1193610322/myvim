@@ -19,7 +19,6 @@ set softtabstop=4
 set expandtab
 syntax on
 let maplocalleader="/"
-
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -49,7 +48,7 @@ set clipboard=unnamed
 set foldmethod=indent
 set foldlevel=99
 " Enable folding with the spacebar
-nnoremap <space> za
+nnoremap <Space> za
 
 " ignore some files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
@@ -71,7 +70,7 @@ EOF
 """""""""""""""""""""""
 nmap <Leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <Leader>gf :YcmCompleter GoToReferences<CR>
-nmap <Leader>ag :Ag<Space>
+nmap <Leader>ag :Ag!<Space>
 nmap <Leader>sf :CtrlSF<Space>
 
 "split navigations
@@ -204,8 +203,9 @@ autocmd BufEnter ControlP let b:ale_enabled = 0
 "endfunction
 "imap <Esc> <Esc><slient>:call DisableAle()<CR>
 ""map <Esc> <Esc><silent>:call DisableAle()<CR>
-"au Filetype ctrlsf   map <silent> <Esc> <Esc>:CtrlSFClose<CR>
-"au Filetype ctrlsf   imap <silent> <Esc> <Esc>:CtrlSFClose<CR>
+au Filetype nerdtree map <buffer> <Space> go
+au Filetype qf map <buffer> <Space> go
+au Filetype qf map <buffer> <Enter> O
 "au BufLeave __CtrlSF__  :ToggleWhitespace
 "let g:ale_filetype_blacklist = [
 "\   'dirvish',
@@ -217,3 +217,12 @@ autocmd BufEnter ControlP let b:ale_enabled = 0
 "\]
 ""au BufLeave ControlP :ALEEnable
 "highlight IncSearch guibg=green ctermbg=green term=underline
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+
+" augroup numbertoggle
+    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+    autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
+" augroup end

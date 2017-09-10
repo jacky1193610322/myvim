@@ -15,6 +15,9 @@ Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
 Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'lfv89/vim-interestingwords'
+Bundle 'terryma/vim-smooth-scroll'
+"Bundle 'timakro/vim-searchant'
+"Bundle 'inside/vim-search-pulse'
 "Bundle 'hongqn/vim-osx-ime', {*/
 "   \  'build' : {
 "   \    'mac' : 'make',
@@ -65,8 +68,6 @@ Bundle 'shougo/vimproc'
 "Bundle 'pbrisbin/vim-mkdir'
 "Bundle 'scrooloose/syntastic'
 Plugin 'w0rp/ale'
-" Set this. Airline will handle the rest.
-let g:airline#extensions#ale#enabled = 1
 Bundle 'rking/ag.vim'
 "Bundle 'slim-template/vim-slim'
 "Bundle 'thoughtbot/vim-rspec'
@@ -137,10 +138,6 @@ endif
 
 let laststatus = 2
 "let g:airline#extensions#tabline#enabled = 1
-call airline#parts#define_function('ALE', 'ALEGetStatusLine')
-call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
-let g:airline_section_error = airline#section#create_right(['ALE'])
-let g:airline_section_error = airline#section#create_right(['ALE'])
 " let g:airline_theme="deus"
 "let g:airline#extensions#tabline#buffer_nr_show = 1
 "let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
@@ -209,25 +206,32 @@ let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
 
-"asl 的配置
-let g:ale_statusline_format = ['✗ %d', '⚠  %d', '✔ OK']
-"显示Linter名称,出错或警告等相关信息
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"{{{ale 的配置
+
+    " Set this=0 自定义底部状态栏.
+    let g:airline#extensions#ale#enabled = 0
+    call airline#parts#define_function('ALE', 'ALEGetStatusLine')
+    call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
+    let g:airline_section_error = airline#section#create_right(['ALE'])
+    let g:ale_statusline_format = ['✗ %d', '⚠  %d', '✔ OK']
+    "显示Linter名称,出错或警告等相关信息
+    let g:ale_echo_msg_error_str = 'E'
+    let g:ale_echo_msg_warning_str = 'W'
+    let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 
-"文件内容发生变化时不进行检查
-" let g:ale_lint_on_text_changed = 'never'
-"打开文件时进行检查
-let g:ale_enabled = 1
-"<Leader>s触发/关闭语法检查
-" ale的配置 Write this in your vimrc file
-let g:ale_set_loclist = 0
-" 如果这个quickfix 不关闭的话 使用ag查询的时候 使用go命令预览 就会被替换
-let g:ale_set_quickfix = 0
-let g:ale_linters = {'python': ['flake8']}
-let g:ale_statusline_format = ['✗ %d', '⚠  %d', '✔ OK']
+    "文件内容发生变化时不进行检查
+    " let g:ale_lint_on_text_changed = 'never'
+    "打开文件时进行检查
+    let g:ale_enabled = 1
+    "<Leader>s触发/关闭语法检查
+    " ale的配置 Write this in your vimrc file
+    let g:ale_set_loclist = 0
+    " 如果这个quickfix 不关闭的话 使用ag查询的时候 使用go命令预览 就会被替换
+    let g:ale_set_quickfix = 0
+    let g:ale_linters = {'python': ['flake8']}
+"}}}
+
 
 " ctrlsf {{{
     let g:ctrlsf_position = 'bottom'
@@ -246,10 +250,10 @@ let g:ale_statusline_format = ['✗ %d', '⚠  %d', '✔ OK']
         \ "tab"   : "t",
         \ "tabb"  : "T",
         \ "prevw" : ["<Space>", 'p'],
-        \ "quit"  : ["q", "<Esc>"],
+        \ "quit"  : ["q"],
         \ "next": "n",
         \ "prev": "N",
-        \ "pquit" : ["<Esc>", "q"],
+        \ "pquit" : ["q"],
         \ }
 " }}}
 
@@ -320,4 +324,9 @@ au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger 
 "
 "{{{ vim-trailiong-white-space
 let g:extra_whitespace_ignored_filetypes = ['ctrlsf', 'qf', 'ctrlp']
+"}}}
+
+"{{{inside/vim-search-pulse
+   "let g:vim_search_pulse_mode = 'pattern'
+   "let g:vim_search_pulse_duration = 500
 "}}}

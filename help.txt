@@ -2,3 +2,7 @@
 
 map的leader n与mark里面的一个冲突了 所以我改了mark里面的源码
 还有 leader 与nertcommenter冲突  所以我也改了里面的映射 <Leader>cm的映射
+
+在ag查找的时候我参考了
+ag的issu里面 使用Maybe to add a real time preview is a good idea. 
+在本地的ag里面加入了 jk 预览的功能

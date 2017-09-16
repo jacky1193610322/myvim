@@ -4,5 +4,14 @@ map的leader n与mark里面的一个冲突了 所以我改了mark里面的源码
 还有 leader 与nertcommenter冲突  所以我也改了里面的映射 <Leader>cm的映射
 
 在ag查找的时候我参考了
-ag的issu里面 使用Maybe to add a real time preview is a good idea. 
+ag的issu里面 使用Maybe to add a real time preview is a good idea.
 在本地的ag里面加入了 jk 预览的功能
+
+ultisnip与 我映射的《tab》 是缩进冲突 所以我注释了下面这句话
+在下面这个目录里面
+bundle/ultisnips/autoload/UltiSnips/map_keys.vim
+    "exec "xnoremap <silent> " . g:UltiSnipsExpandTrigger. " :call UltiSnips#SaveLastVisualSelection()<cr>gvs"
+在使用vundle update ycm之后一定要重新编译一下
+cd ~/.vim/bundle/YouCompleteMe
+./install.py --clang-completer
+要不然没有提示

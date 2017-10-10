@@ -6,6 +6,19 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " Let Vundle manage Vundle
+Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Bundle "tpope/vim-surround"
+Bundle 'altercation/vim-colors-solarized'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'w0rp/ale'
+Bundle 'rking/ag.vim'
+Bundle 'shougo/vimshell'
+Bundle 'shougo/vimproc'
+Bundle 'kien/ctrlp.vim'
+Bundle 'majutsushi/tagbar'
 Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'miyakogi/conoline.vim'
@@ -13,9 +26,19 @@ Bundle "matze/vim-move"
 Bundle 'CodeFalling/fcitx-vim-osx'
 Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'tomasr/molokai'
+Bundle 'bronson/vim-trailing-whitespace'
+Bundle 'dyng/ctrlsf.vim'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'vim-scripts/Mark--Karkat'
+Bundle 'Raimondi/delimitMate'
+Bundle "tpope/vim-repeat"
+Bundle "tpope/vim-fugitive"
 Bundle 'tacahiroy/ctrlp-funky'
-Bundle 'lfv89/vim-interestingwords'
 Bundle 'terryma/vim-smooth-scroll'
+Bundle 'Shougo/neocomplete.vim'
 "Bundle 'timakro/vim-searchant'
 "Bundle 'inside/vim-search-pulse'
 "Bundle 'hongqn/vim-osx-ime', {*/
@@ -30,29 +53,17 @@ Bundle 'terryma/vim-smooth-scroll'
 " Bundle 'inside/vim-search-pulse'
 " Define bundles via Github repos
 " Bundle 'christoomey/vim-run-interactive'
-Bundle 'Valloric/YouCompleteMe'
 " Bundle 'croaky/vim-colors-github'
-Bundle 'kien/rainbow_parentheses.vim'
 " 主题 solarized
 " solarized
 " Bundle 'altercation/vim-colors-solarized'
 " molokai
 " 主题 molokai
-Bundle 'tomasr/molokai'
-Bundle 'bronson/vim-trailing-whitespace'
-Bundle 'dyng/ctrlsf.vim'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'vim-scripts/Mark--Karkat'
-Bundle 'Raimondi/delimitMate'
-Bundle "tpope/vim-repeat"
-Bundle "tpope/vim-fugitive"
 "Plugin 'vim-ctrlspace/vim-ctrlspace'
 " Bundle 'danro/rename.vim'
 " Bundle 'majutsushi/tagbar'
 " Bundle 'kchmck/vim-coffee-script'
 " Bundle 'Shougo/unite.vim'
-Bundle 'kien/ctrlp.vim'
-Bundle 'majutsushi/tagbar'
 "Bundle 'Shougo/vimproc.vim', {
 "\ 'build' : {
 "\     'windows' : 'tools\\update-dll-mingw',
@@ -62,13 +73,9 @@ Bundle 'majutsushi/tagbar'
 "\     'unix' : 'gmake',
 "\    },
 "\ }
-Bundle 'shougo/vimshell'
-Bundle 'shougo/vimproc'
 "Plugin 'grep.vim'
 "Bundle 'pbrisbin/vim-mkdir'
 "Bundle 'scrooloose/syntastic'
-Plugin 'w0rp/ale'
-Bundle 'rking/ag.vim'
 "Bundle 'slim-template/vim-slim'
 "Bundle 'thoughtbot/vim-rspec'
 "Bundle 'tpope/vim-bundler'
@@ -81,17 +88,11 @@ Bundle 'rking/ag.vim'
 "Bundle 'vim-scripts/matchit.zip'
 "Bundle 'vim-scripts/tComment'
 "Bundle 'mattn/emmet-vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Bundle "tpope/vim-surround"
 "Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 "'Bundle 'Lokaltog/vim-powerline'
 "'Bundle 'godlygeek/tabular'
 "'Bundle 'msanders/snipmate.vim'
 "'Bundle 'jelera/vim-javascript-syntax'
-Bundle 'altercation/vim-colors-solarized'
 "'Bundle 'othree/html5.vim'
 "'Bundle 'xsbeats/vim-blade'
 "'Bundle 'Raimondi/delimitMate'
@@ -100,17 +101,17 @@ Bundle 'altercation/vim-colors-solarized'
 "'Bundle 'Lokaltog/vim-easymotion'
 "'Bundle 'tomasr/molokai'
 "'Bundle 'klen/python-mode'
-Plugin 'vim-scripts/indentpython.vim'
 " if filereadable(expand("~/.vimrc.bundles"))
 "  source ~/.vimrc.bundles
 " endif
 
 "ctrlp{{{
-filetype on
-let g:ctrlp_regexp = 1
-let g:ctrlp_funky_syntax_highlight = 0
-let g:ctrlp_max_height = 15
-let g:ctrlp_extensions = ['funky']
+    filetype on
+    let g:ctrlp_regexp = 1
+    let g:ctrlp_funky_syntax_highlight = 0
+    let g:ctrlp_max_height = 15
+    let g:ctrlp_extensions = ['funky']
+    let g:ctrlp_funky_syntax_highlight = 0
 "}}}
 " let g:nerdtree_tabs_open_on_console_startup=1
 let python_highlight_all=1
@@ -119,9 +120,6 @@ let python_highlight_all=1
 "nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
 "nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-let g:ctrlp_funky_syntax_highlight = 0
-
-let g:ctrlp_extensions = ['funky']
 
 "set nocompatible
 "set hidden
@@ -130,82 +128,97 @@ let g:ctrlp_extensions = ['funky']
 "set showtabline=0
 " 使用ag作为ctrlp的搜索
 if executable('ag')
-  let g:ackprg='ag --nogroup --nocolor --hidden -g  --nocolumn'
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --nocolor  -g ""'
-  let g:ctrlp_use_caching = 0
+    let g:ackprg='ag --nogroup --nocolor --hidden -g  --nocolumn'
+    set grepprg=ag\ --nogroup\ --nocolor
+    let g:ctrlp_user_command = 'ag %s -l --nocolor  -g ""'
+    let g:ctrlp_use_caching = 0
 endif
 
-let laststatus = 2
-"let g:airline#extensions#tabline#enabled = 1
-" let g:airline_theme="deus"
-"let g:airline#extensions#tabline#buffer_nr_show = 1
-"let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
-"let g:airline#extensions#tabline#show_tab_nr = 1
-" 要想使用箭头等 需要安装powerline－font 字体 要不然箭头什么回显示乱码
-" let g:airline_powerline_fonts = 1
-" 关闭状态显示空白符号计数,这个对我用处不大"
-let g:airline#extensions#whitespace#enabled = 0
-if !exists('g:airline_symbols')
-        let g:airline_symbols = {}
-endif
-"let g:airline#extensions#tabline#left_sep = ' '
-"let g:airline#extensions#tabline#left_alt_sep = '|'
-
-" 配置delimitmate
-" for python docstring ", 特别有用
-au FileType python let b:delimitMate_nesting_quotes = ['"']
-" 关闭某些类型文件的自动补全
-"au FileType mail let b:delimitMate_autoclose = 0
-
-" nertcommenter需要的配置
-filetype plugin on
-
-
-" syntastic 有问题不用了
-" let g:syntastic_python_checkers=['flake8']
-" let g:syntastic_python_flake8_args='--ignore=E501,E225,E124,E712,E116,E131'
-" let g:syntastic_mode_map = {'mode': 'active', 'passive_filetypes': ['java'] }
-" let g:syntastic_always_populate_loc_list=1
-" let g:syntastic_auto_loc_list=1
-" let g:syntastic_check_on_open=1
-" let g:syntastic_check_on_wq=0
-" autocmd BufWinLeave * if empty(&bt) | lclose | endif
+"{{{
+    "let g:airline#extensions#tabline#enabled = 1
+    " let g:airline_theme="deus"
+    "let g:airline#extensions#tabline#buffer_nr_show = 1
+    "let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+    "let g:airline#extensions#tabline#show_tab_nr = 1
+    " 要想使用箭头等 需要安装powerline－font 字体 要不然箭头什么回显示乱码
+     let g:airline_powerline_fonts = 0
+    " 关闭状态显示空白符号计数,这个对我用处不大"
+    "if !exists('g:airline_powerline_fonts')
+    "        " Use the default set of separators with a few customizations
+    "        let g:airline_left_sep='›'  " Slightly fancier than '>'
+    "        let g:airline_right_sep='‹' " Slightly fancier than '<'
+    "endif
+    let laststatus = 2
+    "let g:airline_theme = 'solarized'
+    let g:airline#extensions#whitespace#enabled = 0
+    if !exists('g:airline_symbols')
+            let g:airline_symbols = {}
+    endif
+    "let g:airline#extensions#tabline#left_sep = ' '
+    "let g:airline#extensions#tabline#left_alt_sep = '|'
+"}}}
 
 
-" let g:syntastic_error_symbol = '✗'
-" let g:syntastic_warning_symbol = '⚠'
+"{{{ 配置delimitmate
+    " for python docstring ", 特别有用
+    au FileType python let b:delimitMate_nesting_quotes = ['"']
+    " 关闭某些类型文件的自动补全
+    "au FileType mail let b:delimitMate_autoclose = 0
+"}}}
 
-" kien/rainbow_parentheses.vim的配置
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
 
-"vim-colors-solarized的配置
-let g:solarized_termtrans=1
-let g:solarized_contrast="normal"
-let g:solarized_visibility="normal"
+"{{{ nertcommenter需要的配置
+    filetype plugin on
+"}}}
 
+"{{{
+    " syntastic 有问题不用了
+    " let g:syntastic_python_checkers=['flake8']
+    " let g:syntastic_python_flake8_args='--ignore=E501,E225,E124,E712,E116,E131'
+    " let g:syntastic_mode_map = {'mode': 'active', 'passive_filetypes': ['java'] }
+    " let g:syntastic_always_populate_loc_list=1
+    " let g:syntastic_auto_loc_list=1
+    " let g:syntastic_check_on_open=1
+    " let g:syntastic_check_on_wq=0
+    " autocmd BufWinLeave * if empty(&bt) | lclose | endif
+    " let g:syntastic_error_symbol = '✗'
+    " let g:syntastic_warning_symbol = '⚠'
+"}}}
+
+
+"{{{ kien/rainbow_parentheses.vim的配置
+    let g:rbpt_colorpairs = [
+        \ ['brown',       'RoyalBlue3'],
+        \ ['Darkblue',    'SeaGreen3'],
+        \ ['darkgray',    'DarkOrchid3'],
+        \ ['darkgreen',   'firebrick3'],
+        \ ['darkcyan',    'RoyalBlue3'],
+        \ ['darkred',     'SeaGreen3'],
+        \ ['darkmagenta', 'DarkOrchid3'],
+        \ ['brown',       'firebrick3'],
+        \ ['gray',        'RoyalBlue3'],
+        \ ['darkmagenta', 'DarkOrchid3'],
+        \ ['Darkblue',    'firebrick3'],
+        \ ['darkgreen',   'RoyalBlue3'],
+        \ ['darkcyan',    'SeaGreen3'],
+        \ ['darkred',     'DarkOrchid3'],
+        \ ['red',         'firebrick3'],
+        \ ]
+    let g:rbpt_max = 16
+    let g:rbpt_loadcmd_toggle = 0
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+"}}}
+
+"{{{vim-colors-solarized的配置
+    let g:solarized_termtrans=1
+    let g:solarized_contrast="normal"
+    let g:solarized_visibility="normal"
+"}}}
+"
+"
 "{{{ale 的配置
 
     " Set this=0 自定义底部状态栏.
@@ -259,15 +272,12 @@ let g:solarized_visibility="normal"
 
 " youcompleteMe{{{
     " 回车作为选中
+    let g:ycm_autoclose_preview_window_after_completion=1
     let g:ycm_key_list_stop_completion = ['<CR>']
     let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
     let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
     let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
 " }}}
-
-" quickscope{{{
-    let g:qs_highlight_on_keys = ['f', 'F']
-"}}}
 
 "" let g:ctrlsf_populate_qflist = 1
  "let g:ctrlsf_auto_close = 1
@@ -286,47 +296,64 @@ let g:solarized_visibility="normal"
     map <leader>us :UltiSnipsEdit<CR>
 
 "}}}
+
+
 "{{{  这段代码是解决ycm和snips的tab键冲突的问题
-function! g:UltiSnips_Complete()
-  call UltiSnips#ExpandSnippet()
-  if g:ulti_expand_res == 0
-    if pumvisible()
-      return "\<C-n>"
-    else
-      call UltiSnips#JumpForwards()
-      if g:ulti_jump_forwards_res == 0
-        return "\<TAB>"
+    function! g:UltiSnips_Complete()
+      call UltiSnips#ExpandSnippet()
+      if g:ulti_expand_res == 0
+        if pumvisible()
+          return "\<C-n>"
+        else
+          call UltiSnips#JumpForwards()
+          if g:ulti_jump_forwards_res == 0
+            return "\<TAB>"
+          endif
+        endif
       endif
+      return ""
+    endfunction
+
+    function! g:UltiSnips_Reverse()
+      call UltiSnips#JumpBackwards()
+      if g:ulti_jump_backwards_res == 0
+        return "\<C-P>"
+      endif
+
+      return ""
+    endfunction
+
+
+    if !exists("g:UltiSnipsJumpForwardTrigger")
+      let g:UltiSnipsJumpForwardTrigger = "<tab>"
     endif
-  endif
-  return ""
-endfunction
-
-function! g:UltiSnips_Reverse()
-  call UltiSnips#JumpBackwards()
-  if g:ulti_jump_backwards_res == 0
-    return "\<C-P>"
-  endif
-
-  return ""
-endfunction
-
-
-if !exists("g:UltiSnipsJumpForwardTrigger")
-  let g:UltiSnipsJumpForwardTrigger = "<tab>"
-endif
-if !exists("g:UltiSnipsJumpBackwardTrigger")
-  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-endif
-au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
-au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
+    if !exists("g:UltiSnipsJumpBackwardTrigger")
+      let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+    endif
+    au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
+    au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
 "}}}
 "
 "{{{ vim-trailiong-white-space
-let g:extra_whitespace_ignored_filetypes = ['ctrlsf', 'qf', 'ctrlp']
+    let g:extra_whitespace_ignored_filetypes = ['ctrlsf', 'qf']
 "}}}
 
-"{{{inside/vim-search-pulse
-   "let g:vim_search_pulse_mode = 'pattern'
-   "let g:vim_search_pulse_duration = 500
-"}}}
+
+" beta {{{
+    " pip install yapf
+    " python code format
+    " format all file
+    autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
+    " format select block
+    autocmd FileType python vnoremap <leader>y :!yapf<Cr>
+
+    " Plug 'posva/vim-vue'
+
+    " Plug 'millermedeiros/vim-esformatter'
+    " will run esformatter after pressing <leader> followed by the 'e' and 's'
+    " keys
+    " nnoremap <silent> <leader>es :Esformatter<CR>
+    " vnoremap <silent> <leader>es :EsformatterVisual<CR>
+
+" }}}
+autocmd VimEnter * :EMCommandLineNoreMap <C-v> <C-r>+

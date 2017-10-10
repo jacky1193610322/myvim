@@ -53,7 +53,6 @@ nnoremap <Space> za
 " ignore some files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
-let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "上面的第一行确保了在你完成操作之后，自动补全窗口不会消失，第二行则定义了“转到定义”的快捷方式。
 
@@ -165,7 +164,7 @@ vnoremap / /\v
 nmap \ <Plug>CtrlSFCwordPath<CR>
 
 " Gif config
-map  / <Plug>(easymotion-sn)\v\c
+map / <Plug>(easymotion-sn)
 let g:EasyMotion_smartcase = 1
 " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
 " Without these mappings, `n` & `N` works fine. (These mappings just provide
@@ -187,9 +186,9 @@ nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
-cnoremap <C-j> <t_kd>
-cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
+cmap <C-b> <S-Left>
+cmap <C-f> <S-Right>
 cnoremap <C-e> <End>
 "au BufReadPost quickfix :e ~/.vimrc.bundles<CR>
 "au CtrlPFunky * echo &bf
@@ -226,3 +225,116 @@ noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
     autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
     autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
 " augroup end
+" change window width之后使用ctrl w ＝恢复平分窗口
+nnoremap <S-left> :vertical resize -5<cr>
+nnoremap <S-right> :vertical resize +5<cr>
+
+" 映射ctrl＋b 在command line的时候 向前移动一个单词 ctrl f向后移动一个单词
+" 以下的代码
+" 来自https://github.com/vim-scripts/emacscommandline/blob/master/plugin/emacscommandline.vim
+cnoremap <Esc>f <C-\>e<SID>ForwardWord()<CR>
+cmap <C-F> <Esc>f
+function! <SID>ForwardWord()
+    let l:loc = strpart(getcmdline(), 0, getcmdpos() - 1)
+    let l:roc = strpart(getcmdline(), getcmdpos() - 1)
+    if (l:roc =~ '\v^\s*\w')
+        let l:rem = matchstr(l:roc, '\v^\s*\w+')
+    elseif (l:roc =~ '\v^\s*[^[:alnum:]_[:blank:]]')
+        let l:rem = matchstr(l:roc, '\v^\s*[^[:alnum:]_[:blank:]]+')
+    else
+        call setcmdpos(strlen(getcmdline()) + 1)
+        return getcmdline()
+    endif
+    call setcmdpos(strlen(l:loc) + strlen(l:rem) + 1)
+    return getcmdline()
+endfunction
+
+cnoremap <Esc>b <C-\>e<SID>BackwardWord()<CR>
+cmap <C-B> <Esc>b
+function! <SID>BackwardWord()
+    let l:loc = strpart(getcmdline(), 0, getcmdpos() - 1)
+    let l:roc = strpart(getcmdline(), getcmdpos() - 1)
+    if (l:loc =~ '\v\w\s*$')
+        let l:rem = matchstr(l:loc, '\v\w+\s*$')
+    elseif (l:loc =~ '\v[^[:alnum:]_[:blank:]]\s*$')
+        let l:rem = matchstr(l:loc, '\v[^[:alnum:]_[:blank:]]+\s*$')
+    else
+        call setcmdpos(1)
+        return getcmdline()
+    endif
+    let @c = l:rem
+    call setcmdpos(strlen(l:loc) - strlen(l:rem) + 1)
+    return getcmdline()
+endfunction
+"{{{
+    "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+    " Disable AutoComplPop.
+    let g:acp_enableAtStartup = 0
+    " Use neocomplete.
+    let g:neocomplete#enable_at_startup = 1
+    " Use smartcase.
+    let g:neocomplete#enable_smart_case = 1
+    " Set minimum syntax keyword length.
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+    " Define dictionary.
+    let g:neocomplete#sources#dictionary#dictionaries = {
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell_hist',
+        \ 'scheme' : $HOME.'/.gosh_completions'
+            \ }
+
+    " Define keyword.
+    if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
+    endif
+    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+    " Plugin key-mappings.
+    inoremap <expr><C-g>     neocomplete#undo_completion()
+    inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+    " Recommended key-mappings.
+    " <CR>: close popup and save indent.
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+      return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+      " For no inserting <CR> key.
+      "return pumvisible() ? "\<C-y>" : "\<CR>"
+    endfunction
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    " Close popup by <Space>.
+    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+    " AutoComplPop like behavior.
+    "let g:neocomplete#enable_auto_select = 1
+
+    " Shell like behavior(not recommended).
+    "set completeopt+=longest
+    "let g:neocomplete#enable_auto_select = 1
+    "let g:neocomplete#disable_auto_complete = 1
+    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+    " Enable omni completion.
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+    " Enable heavy omni completion.
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+      let g:neocomplete#sources#omni#input_patterns = {}
+    endif
+    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+    " For perlomni.vim setting.
+    " https://github.com/c9s/perlomni.vim
+    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+"}}}

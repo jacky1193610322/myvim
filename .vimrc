@@ -29,7 +29,7 @@ endif
 nnoremap <silent> <F5> :NERDTreeTabsToggle<CR>
 let mapleader=","
 map <silent> <Leader>n <Plug>NERDTreeTabsToggle<CR>
-map <silent> <leader>cm <Plug>MarkClear<CR>
+map <silent> <leader>cm <Plug>MarkClear
 
 " set hlsearch
 set ic            "搜索忽略大小写
@@ -338,3 +338,5 @@ endfunction
     " https://github.com/c9s/perlomni.vim
     let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 "}}}
+"nnoremap <Down> <C-e>
+"nnoremap <Up> <C-y>

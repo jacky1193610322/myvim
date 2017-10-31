@@ -29,7 +29,8 @@ Bundle 'honza/vim-snippets'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'tomasr/molokai'
-Bundle 'bronson/vim-trailing-whitespace'
+"Bundle 'bronson/vim-trailing-whitespace'
+Bundle 'ntpeters/vim-better-whitespace'
 Bundle 'dyng/ctrlsf.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'vim-scripts/Mark--Karkat'
@@ -113,7 +114,8 @@ Bundle 'svermeulen/vim-easyclip'
     let g:ctrlp_funky_syntax_highlight = 0
     let g:ctrlp_max_height = 15
     let g:ctrlp_extensions = ['funky']
-    let g:ctrlp_funky_syntax_highlight = 0
+    "let g:ctrlp_funky_syntax_highlight = 1
+    let g:ctrlp_funky_matchtype = 'path'
 "}}}
 " let g:nerdtree_tabs_open_on_console_startup=1
 let python_highlight_all=1
@@ -336,10 +338,14 @@ endif
     au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
 "}}}
 "
-"{{{ vim-trailiong-white-space
-    let g:extra_whitespace_ignored_filetypes = ['ctrlsf', 'qf']
+"{{{ better_whitespace
+"之所以使用 better_whitespace 就是因为之前的那个不能忽略指定的filetype类型
+    let g:better_whitespace_filetypes_blacklist=['ctrlsf', 'qf', 'far_vim']
+    "let g:extra_whitespace_ignored_filetypes = ['ctrlsf', 'qf']
 "}}}
-
+"{{{ far
+    "let g:far#source = 'ag'
+"}}}
 
 " beta {{{
     " pip install yapf

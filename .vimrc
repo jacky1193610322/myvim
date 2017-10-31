@@ -114,7 +114,7 @@ vnoremap <s-tab> <gv
 nnoremap <leader>b :CtrlPBuffer<CR>
 
 "bronson/vim-trailing-whitespace 的配置
-nnoremap <silent> <leader><space> :FixWhitespace<CR>
+nnoremap <silent> <leader><space> :StripWhitespace<CR>
 
 " Nerdtree配置
 nnoremap <leader>f :NERDTreeFind<CR>
@@ -196,6 +196,7 @@ cnoremap <C-e> <End>
 "au CtrlPFunky * echo &bf
 " 使能ctrlp－funky的时候 如果开启ale的检查 那么ctrlp－funky会报错
 autocmd BufEnter ControlP let b:ale_enabled = 0
+autocmd Filetype far_vim let b:ale_enabled = 0
 "function DisableAle()
 "    let bnr = bufwinnr('2wincmd w')
 "    if bnr > 0
@@ -223,10 +224,6 @@ noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 3)<CR>
 noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
-" augroup numbertoggle
-    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-    autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
-" augroup end
 " change window width之后使用ctrl w ＝恢复平分窗口
 nnoremap <S-left> :vertical resize -5<cr>
 nnoremap <S-right> :vertical resize +5<cr>
@@ -342,3 +339,10 @@ endfunction
 "}}}
 "nnoremap <Down> <C-e>
 "nnoremap <Up> <C-y>
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
+augroup END

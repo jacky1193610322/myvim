@@ -77,6 +77,8 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+" 交换两个窗口的位置
+nnoremap <C-x> <C-W>x
 
 nmap <F9> :TagbarToggle<CR>
 noremap <Leader>t :TagbarToggle<CR>
@@ -216,8 +218,8 @@ au Filetype qf map <buffer> <Enter> O
 "\]
 ""au BufLeave ControlP :ALEEnable
 "highlight IncSearch guibg=green ctermbg=green term=underline
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 3)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 3)<CR>
 noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 

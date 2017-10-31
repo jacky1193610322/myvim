@@ -39,6 +39,8 @@ Bundle "tpope/vim-fugitive"
 Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'terryma/vim-smooth-scroll'
 Bundle 'Shougo/neocomplete.vim'
+Bundle 'brooth/far.vim'
+Bundle 'svermeulen/vim-easyclip'
 "Bundle 'timakro/vim-searchant'
 "Bundle 'inside/vim-search-pulse'
 "Bundle 'hongqn/vim-osx-ime', {*/
@@ -357,3 +359,10 @@ endif
 
 " }}}
 autocmd VimEnter * :EMCommandLineNoreMap <C-v> <C-r>+
+
+"{{{
+    "let g:EasyClipUseCutDefaults = 0
+    "nmap x <Plug>MoveMotionPlug
+    "xmap x <Plug>MoveMotionXPlug
+    "nmap xx <Plug>MoveMotionLinePlug
+"}}}

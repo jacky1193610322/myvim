@@ -63,11 +63,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+ if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='vim'
+ else
+   export EDITOR='mvim'
+ fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -95,14 +95,16 @@ alias photoshop="open -a Adobe\\ Photoshop\\ CS6 "
 alias wechat="open -a WeChat "
 alias dingding="open -a 钉钉 "
 alias code="open -a Visual\\ Studio\\ Code "
-alias vim="/usr/local/bin/vim "
-alias vi="/usr/local/bin/vim "
-PATH=$PATH:/usr/local/mysql-shell/bin:/usr/local/bin:/usr/local/Cellar/colordiff/1.0.18/bin
+alias vim="mvim -v "
+alias vi="mvim -v "
+alias git-difftool="git difftool --dir-dif --no-symlink -D  "
+PATH=/usr/local/bin:$PATH:/usr/local/mysql-shell/bin:/usr/local/bin:/usr/local/Cellar/colordiff/1.0.18/bin
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
+export VIRTUALENVWRAPPER_PYTHON="/usr/local/bin/python2"
+# alias python="/usr/local/bin/python2 "
+# alias pip="/usr/local/bin/pip2 "
 source /usr/local/bin/virtualenvwrapper.sh
-alias python="/usr/local/bin/python2 "
-alias pip="/usr/local/bin/pip2 "
 
 # 可以使用ctrl －z来切换shell与vim
 fancy-ctrl-z () {
@@ -123,5 +125,9 @@ export JAVA_HOME
 export PATH
 export CLASSPATH
 
-PATH=$PATH:/Users/jacky/codesource/logstash-5.5.1/bin
+PATH=$PATH:/Users/jacky/codesource/logstash-5.5.1/bin:/usr/local/Cellar/aria2/1.33.0/bin
 export PATH
+DISABLE_AUTO_TITLE="true"
+export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}\007"'
+alias ag="ag --mmap"
+export TERM=xterm-256color

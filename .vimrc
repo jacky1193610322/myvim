@@ -11,6 +11,7 @@ au BufWrite /private/tmp/crontab.* set nowritebackup nobackup
 " Don't write backup file if vim is being called by "chpass"
 au BufWrite /private/etc/pw.* set nowritebackup nobackup
 
+set noswapfile
 set nu
 set tabstop=4
 set shiftwidth=4
@@ -22,7 +23,6 @@ let maplocalleader="/"
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-
 if filereadable(expand("~/.vimrc.bundles"))
 source ~/.vimrc.bundles
 endif
@@ -57,7 +57,7 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "上面的第一行确保了在你完成操作之后，自动补全窗口不会消失，第二行则定义了“转到定义”的快捷方式。
 
 "python with virtualenv support
-py << EOF
+py3 << EOF
 import os
 import sys
 if 'VIRTUAL_ENV' in os.environ:
@@ -83,8 +83,9 @@ nnoremap <C-x> <C-W>x
 nmap <F9> :TagbarToggle<CR>
 noremap <Leader>t :TagbarToggle<CR>
 " 启动时自动focus
-let g:tagbar_autofocus = 1
-
+let g:tagbar_autofocus = 0
+let g:tagbar_autoclose = 1
+"let g:tagbar_map_preview = '<Space>'
 "普Vim插件之ale通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
 nmap sp <Plug>(ale_previous_wrap)
 nmap sn <Plug>(ale_next_wrap)
@@ -127,10 +128,13 @@ cnoremap w!! w !sudo tee > /dev/null %
 noremap \ ,
 
 " easy-mmotion的配置
+nmap s <Plug>(easymotion-overwin-f)
 map <Leader>l <Plug>(easymotion-lineforward)
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 map <Leader>h <Plug>(easymotion-linebackward)
+" Smartsign (type `3` and match `3`&`#`)
+let g:EasyMotion_use_smartsign_us = 1
 
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
@@ -174,6 +178,8 @@ let g:EasyMotion_smartcase = 1
 "map  n <Plug>(easymotion-next)
 "map  N <Plug>(easymotion-prev)
 map f <Plug>(easymotion-sl)
+map w <Plug>(easymotion-bd-wl)
+map e <Plug>(easymotion-bd-el)
 
 "上移下移操作
 nmap <S-j> <Plug>MoveLineDown
@@ -221,8 +227,8 @@ au Filetype qf map <buffer> <Enter> O
 "highlight IncSearch guibg=green ctermbg=green term=underline
 noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 3)<CR>
 noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 3)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+noremap <silent> <C-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " change window width之后使用ctrl w ＝恢复平分窗口
 nnoremap <S-left> :vertical resize -5<cr>
@@ -341,8 +347,53 @@ endfunction
 "nnoremap <Up> <C-y>
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
-augroup END
+"augroup numbertoggle
+"  autocmd!
+"  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
+"  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
+"augroup END
+"au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+let cmd = ['rg', '{pattern}', '--vimgrep',
+            \   '--max-count={limit}', '--glob={file_mask}']
+if &smartcase
+    call add(cmd, '--smart-case')
+endif
+if &ignorecase
+    call add(cmd, '--ignore-case')
+else
+    call add(cmd, '--case-sensetive')
+endif
+
+let g:far#sources = {}
+let g:far#sources.rg = {}
+let g:far#sources.rg.fn = 'far.sources.shell.search'
+let g:far#sources.rg.executor = 'py3'
+let g:far#sources.rg.args = {}
+let g:far#sources.rg.args.cmd = cmd
+let g:far#sources.rg.args.fix_cnum = 'next'
+let g:far#sources.rg.args.items_file_min = 30
+let g:far#sources.rg.args.expand_cmdargs = 1
+
+set background=dark
+set t_Co=256
+"let g:rehash256 = 1
+colorscheme molokai
+let g:molokai_original = 1
+if has("gui_running")
+    set guifont=Monaco:h14
+    if has("gui_gtk2")   "GTK2
+        set guifont=Monaco\ 12,Monospace\ 12
+    endif
+    "set fu
+    set guioptions-=T
+    set guioptions-=e
+    set guioptions-=r
+    set guioptions-=L
+    set guitablabel=%M\ %t
+    set showtabline=1
+    set linespace=2
+    set noimd
+    set t_Co=256
+endif
+hi VisualNOS                   ctermbg=103
+hi Visual                      ctermbg=103

@@ -14,9 +14,9 @@ Bundle "tpope/vim-surround"
 Bundle 'altercation/vim-colors-solarized'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'w0rp/ale'
-Bundle 'rking/ag.vim'
-Bundle 'shougo/vimshell'
-Bundle 'shougo/vimproc'
+"Bundle 'rking/ag.vim'
+"Bundle 'shougo/vimshell'
+"Bundle 'shougo/vimproc'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'gmarik/vundle'
@@ -42,6 +42,9 @@ Bundle 'terryma/vim-smooth-scroll'
 Bundle 'Shougo/neocomplete.vim'
 Bundle 'brooth/far.vim'
 Bundle 'svermeulen/vim-easyclip'
+Bundle 'kana/vim-textobj-indent'
+Bundle 'kana/vim-textobj-user'
+"Bundle 'chr4/nginx.vim'
 "Bundle 'timakro/vim-searchant'
 "Bundle 'inside/vim-search-pulse'
 "Bundle 'hongqn/vim-osx-ime', {*/
@@ -111,6 +114,7 @@ Bundle 'svermeulen/vim-easyclip'
 "ctrlp{{{
     filetype on
     let g:ctrlp_regexp = 1
+    let g:ctrlp_funky_matchtype = 'path'
     let g:ctrlp_funky_syntax_highlight = 0
     let g:ctrlp_max_height = 15
     let g:ctrlp_extensions = ['funky']
@@ -130,7 +134,7 @@ let python_highlight_all=1
 "If you feel brave enough turn off tabline:
 
 "set showtabline=0
-" 使用ag作为ctrlp的搜索
+" 使用ag作为ctrlp的搜索 现在使用rg了
 if executable('ag')
     let g:ackprg='ag --nogroup --nocolor --hidden -g  --nocolumn'
     set grepprg=ag\ --nogroup\ --nocolor
@@ -153,7 +157,7 @@ endif
     "        let g:airline_right_sep='‹' " Slightly fancier than '<'
     "endif
     let laststatus = 2
-    "let g:airline_theme = 'solarized'
+    let g:airline_theme = 'dark'
     let g:airline#extensions#whitespace#enabled = 0
     if !exists('g:airline_symbols')
             let g:airline_symbols = {}
@@ -218,7 +222,7 @@ endif
 
 "{{{vim-colors-solarized的配置
     let g:solarized_termtrans=1
-    let g:solarized_contrast="normal"
+    let g:solarized_contrast="low"
     let g:solarized_visibility="normal"
 "}}}
 "
@@ -252,11 +256,8 @@ endif
 
 " ctrlsf {{{
     let g:ctrlsf_position = 'bottom'
-    let g:ctrlsf_ackprg = '/usr/local/bin/ag'
+    let g:ctrlsf_ackprg = '/usr/local/bin/rg'
     let g:ctrlsf_winsize = '30%'
-     "let g:ctrlsf_extra_backend_args = {
-     "   \ 'ag': '-l --nocolor  -g'
-     "   \ }
     let g:ctrlsf_auto_close = 1
     let g:ctrlsf_confirm_save = 0
     " Note: cannot use <CR> or <C-m> for open
@@ -281,13 +282,14 @@ endif
     let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
     let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
     let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
+    let g:ycm_filetype_blacklist = {
+        \ 'tagbar' : 1,
+        \ 'gitcommit' : 1,
+        \}
+    let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
+    let g:ycm_collect_identifiers_from_tags_files = 1
 " }}}
 
-"" let g:ctrlsf_populate_qflist = 1
- "let g:ctrlsf_auto_close = 1
-" let g:ctrlsf_extra_backend_args = {
-""        \ 'ag': '-l --nocolor --hidden -g'
-""        \ }
 
 " utilsnips{{{
     let g:UltiSnipsExpandTrigger       = "<tab>"
@@ -344,7 +346,7 @@ endif
     "let g:extra_whitespace_ignored_filetypes = ['ctrlsf', 'qf']
 "}}}
 "{{{ far
-    "let g:far#source = 'ag'
+    let g:far#source = 'rg'
 "}}}
 
 " beta {{{

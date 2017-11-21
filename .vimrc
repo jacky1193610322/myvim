@@ -57,7 +57,7 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "上面的第一行确保了在你完成操作之后，自动补全窗口不会消失，第二行则定义了“转到定义”的快捷方式。
 
 "python with virtualenv support
-py3 << EOF
+py << EOF
 import os
 import sys
 if 'VIRTUAL_ENV' in os.environ:
@@ -353,26 +353,6 @@ nnoremap <C-y> 3<C-y>
 "  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
 "augroup END
 "au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
-let cmd = ['rg', '{pattern}', '--vimgrep',
-            \   '--max-count={limit}', '--glob={file_mask}']
-if &smartcase
-    call add(cmd, '--smart-case')
-endif
-if &ignorecase
-    call add(cmd, '--ignore-case')
-else
-    call add(cmd, '--case-sensetive')
-endif
-
-let g:far#sources = {}
-let g:far#sources.rg = {}
-let g:far#sources.rg.fn = 'far.sources.shell.search'
-let g:far#sources.rg.executor = 'py3'
-let g:far#sources.rg.args = {}
-let g:far#sources.rg.args.cmd = cmd
-let g:far#sources.rg.args.fix_cnum = 'next'
-let g:far#sources.rg.args.items_file_min = 30
-let g:far#sources.rg.args.expand_cmdargs = 1
 
 set background=dark
 set t_Co=256
@@ -395,5 +375,10 @@ if has("gui_running")
     set noimd
     set t_Co=256
 endif
+" 因为molokai的主题选中的颜色比较淡 所以在这里进行了修改
 hi VisualNOS                   ctermbg=103
 hi Visual                      ctermbg=103
+" ycm的错误颜色
+if has("spell")
+   hi SpellBad                ctermbg=89
+endif

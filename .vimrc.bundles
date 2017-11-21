@@ -346,7 +346,7 @@ endif
     "let g:extra_whitespace_ignored_filetypes = ['ctrlsf', 'qf']
 "}}}
 "{{{ far
-    let g:far#source = 'rg'
+    let g:far#source = 'vimgrep'
 "}}}
 
 " beta {{{

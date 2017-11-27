@@ -44,6 +44,7 @@ Bundle 'brooth/far.vim'
 Bundle 'svermeulen/vim-easyclip'
 Bundle 'kana/vim-textobj-indent'
 Bundle 'kana/vim-textobj-user'
+Bundle 'kana/vim-textobj-entire'
 "Bundle 'chr4/nginx.vim'
 "Bundle 'timakro/vim-searchant'
 "Bundle 'inside/vim-search-pulse'
@@ -112,7 +113,6 @@ Bundle 'kana/vim-textobj-user'
 " endif
 
 "ctrlp{{{
-    filetype on
     let g:ctrlp_regexp = 1
     let g:ctrlp_funky_matchtype = 'path'
     let g:ctrlp_funky_syntax_highlight = 0
@@ -176,7 +176,6 @@ endif
 
 
 "{{{ nertcommenter需要的配置
-    filetype plugin on
 "}}}
 
 "{{{
@@ -255,6 +254,7 @@ endif
 
 
 " ctrlsf {{{
+    let g:ctrlsf_regex_pattern = 1
     let g:ctrlsf_position = 'bottom'
     let g:ctrlsf_ackprg = '/usr/local/bin/rg'
     let g:ctrlsf_winsize = '30%'
@@ -278,14 +278,25 @@ endif
 " youcompleteMe{{{
     " 回车作为选中
     let g:ycm_autoclose_preview_window_after_completion=1
+    let g:ycm_key_list_select_completion = ['<TAB>']
+    let g:ycm_key_list_previous_completion = ['<S-TAB>']
     let g:ycm_key_list_stop_completion = ['<CR>']
     let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
     let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
     let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
     let g:ycm_filetype_blacklist = {
-        \ 'tagbar' : 1,
-        \ 'gitcommit' : 1,
-        \}
+      \ 'tagbar' : 1,
+      \ 'qf' : 1,
+      \ 'notes' : 1,
+      \ 'markdown' : 1,
+      \ 'unite' : 1,
+      \ 'text' : 1,
+      \ 'vimwiki' : 1,
+      \ 'pandoc' : 1,
+      \ 'infolog' : 1,
+      \ 'mail' : 1,
+      \ '':1
+      \}
     let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
     let g:ycm_collect_identifiers_from_tags_files = 1
 " }}}
@@ -353,9 +364,9 @@ endif
     " pip install yapf
     " python code format
     " format all file
-    autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
-    " format select block
-    autocmd FileType python vnoremap <leader>y :!yapf<Cr>
+    "autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
+    "" format select block
+    "autocmd FileType python vnoremap <leader>y :!yapf<Cr>
 
     " Plug 'posva/vim-vue'
 

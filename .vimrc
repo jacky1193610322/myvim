@@ -18,11 +18,15 @@ set shiftwidth=4
 set cindent
 set softtabstop=4
 set expandtab
+" 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 syntax on
-let maplocalleader="/"
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+let maplocalleader="/"
+"set rtp+=~/.vim/bundle/vundle/
+"call vundle#rc()
 if filereadable(expand("~/.vimrc.bundles"))
 source ~/.vimrc.bundles
 endif
@@ -53,7 +57,6 @@ nnoremap <Space> za
 " ignore some files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "上面的第一行确保了在你完成操作之后，自动补全窗口不会消失，第二行则定义了“转到定义”的快捷方式。
 
 "python with virtualenv support
@@ -67,9 +70,8 @@ if 'VIRTUAL_ENV' in os.environ:
 EOF
 
 """""""""""""""""""""""
-nmap <Leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nmap <Leader>g :YcmCompleter GoTo<CR>
 nmap <Leader>gf :YcmCompleter GoToReferences<CR>
-nmap <Leader>ag :Ag!<Space>
 nmap <Leader>sf :CtrlSF<Space>
 
 "split navigations
@@ -85,6 +87,7 @@ noremap <Leader>t :TagbarToggle<CR>
 " 启动时自动focus
 let g:tagbar_autofocus = 0
 let g:tagbar_autoclose = 1
+let g:tagbar_sort = 0
 "let g:tagbar_map_preview = '<Space>'
 "普Vim插件之ale通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
 nmap sp <Plug>(ale_previous_wrap)
@@ -167,7 +170,7 @@ autocmd BufReadPost quickfix nnoremap <buffer> s <C-w><Enter><C-w>K
 nnoremap / /\v
 vnoremap / /\v
 
-nmap \ <Plug>CtrlSFCwordPath<CR>
+nmap \ <Plug>CtrlSFCCwordPath<CR>
 
 " Gif config
 map / <Plug>(easymotion-sn)
@@ -225,10 +228,10 @@ au Filetype qf map <buffer> <Enter> O
 "\]
 ""au BufLeave ControlP :ALEEnable
 "highlight IncSearch guibg=green ctermbg=green term=underline
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 3)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 3)<CR>
-noremap <silent> <C-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-noremap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 4)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 4)<CR>
+noremap <silent> <C-b> :call smooth_scroll#up(&scroll*2, 0, 5)<CR>
+noremap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 0, 5)<CR>
 
 " change window width之后使用ctrl w ＝恢复平分窗口
 nnoremap <S-left> :vertical resize -5<cr>
@@ -382,3 +385,23 @@ hi Visual                      ctermbg=103
 if has("spell")
    hi SpellBad                ctermbg=89
 endif
+" 检测文件类型
+filetype on
+" 针对不同的文件类型采用不同的缩进格式
+filetype indent on
+" 允许插件
+filetype plugin on
+" 启动自动补全
+filetype plugin indent on
+
+
+nmap  ; ,#
+nmap ' ,*
+"map [[ ?{<CR>w99[{
+"map ]] j0[[%/{<CR>
+
+"nmap [[ <Plug>(IndentWisePreviousLesserIndent)
+"nmap ]] <Plug>(IndentWiseNextLesserIndent)
+
+autocmd FileType python nnoremap <buffer> [[ ?^class\\|\v(^\s*def\s+)<CR>
+autocmd FileType python nnoremap <buffer> ]] /^class\\|\v(^\s*def\s+)<CR>

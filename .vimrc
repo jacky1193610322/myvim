@@ -18,6 +18,7 @@ set shiftwidth=4
 set cindent
 set softtabstop=4
 set expandtab
+autocmd FileType yaml,conf set tabstop=4 shiftwidth=4 expandtab ai
 " 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -34,6 +35,7 @@ nnoremap <silent> <F5> :NERDTreeTabsToggle<CR>
 let mapleader=","
 map <silent> <Leader>n <Plug>NERDTreeTabsToggle<CR>
 map <silent> <leader>cm <Plug>MarkClear
+cnoremap far Far
 
 " set hlsearch
 set ic            "搜索忽略大小写
@@ -45,7 +47,7 @@ set incsearch     "逐步搜索，对当前键入的字符进行搜索而不需�
 """"""""""""""""""""" vim标签配置 end """"""""""""""""""""""
 set encoding=utf-8
 "可以使用系统的粘贴板"
-set clipboard=unnamed
+set clipboard+=unnamed
 " let g:Powerline_symbols='fancy'
 
 " Enable folding
@@ -82,12 +84,7 @@ nnoremap <C-H> <C-W><C-H>
 " 交换两个窗口的位置
 nnoremap <C-x> <C-W>x
 
-nmap <F9> :TagbarToggle<CR>
 noremap <Leader>t :TagbarToggle<CR>
-" 启动时自动focus
-let g:tagbar_autofocus = 0
-let g:tagbar_autoclose = 1
-let g:tagbar_sort = 0
 "let g:tagbar_map_preview = '<Space>'
 "普Vim插件之ale通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
 nmap sp <Plug>(ale_previous_wrap)
@@ -99,7 +96,9 @@ nmap sn <Plug>(ale_next_wrap)
 nmap <silent> <Leader>s :ALEToggle<CR>
 " youcompleteme的配置
 if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
-    let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+    "let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+    let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
 endif
 
 " 设置选中代码缩进的快捷键
@@ -136,21 +135,9 @@ map <Leader>l <Plug>(easymotion-lineforward)
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 map <Leader>h <Plug>(easymotion-linebackward)
-" Smartsign (type `3` and match `3`&`#`)
-let g:EasyMotion_use_smartsign_us = 1
-
-let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
-
-" 忽略长度的告警
-let g:ale_python_flake8_args="--ignore='E501,E712,W291' "
 
 set t_Co=256
 set background=dark
-let g:conoline_color_normal_dark = 'ctermbg=236'
-
-
-" nertcommenter 对其配置
-let NERDDefaultAlign = 'left'
 
 
 " For regular expressions turn magic on
@@ -166,15 +153,13 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 autocmd BufReadPost quickfix nnoremap <buffer> v <C-w><Enter><C-w>L
 autocmd BufReadPost quickfix nnoremap <buffer> s <C-w><Enter><C-w>K
 
-" 进入搜索Use sane regexes"
-nnoremap / /\v
-vnoremap / /\v
-
 nmap \ <Plug>CtrlSFCCwordPath<CR>
 
 " Gif config
 map / <Plug>(easymotion-sn)
-let g:EasyMotion_smartcase = 1
+" You can use other keymappings like <C-l> instead of <CR> if you want to
+" use these mappings as default search and somtimes want to move cursor with
+" EasyMotion.
 " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
 " Without these mappings, `n` & `N` works fine. (These mappings just provide
 " different highlight method and have some other features )
@@ -198,8 +183,8 @@ nnoremap <Leader>fu :CtrlPFunky<Cr>
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
 cnoremap <C-a> <Home>
-cmap <C-b> <S-Left>
-cmap <C-f> <S-Right>
+"cmap <C-b> <S-Left>
+"cmap <C-f> <S-Right>
 cnoremap <C-e> <End>
 "au BufReadPost quickfix :e ~/.vimrc.bundles<CR>
 "au CtrlPFunky * echo &bf
@@ -230,8 +215,8 @@ au Filetype qf map <buffer> <Enter> O
 "highlight IncSearch guibg=green ctermbg=green term=underline
 noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 4)<CR>
 noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 4)<CR>
-noremap <silent> <C-b> :call smooth_scroll#up(&scroll*2, 0, 5)<CR>
-noremap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 0, 5)<CR>
+"noremap <silent> <C-b> :call smooth_scroll#up(&scroll*2, 0, 5)<CR>
+"noremap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 0, 5)<CR>
 
 " change window width之后使用ctrl w ＝恢复平分窗口
 nnoremap <S-left> :vertical resize -5<cr>
@@ -241,7 +226,7 @@ nnoremap <S-right> :vertical resize +5<cr>
 " 以下的代码
 " 来自https://github.com/vim-scripts/emacscommandline/blob/master/plugin/emacscommandline.vim
 cnoremap <Esc>f <C-\>e<SID>ForwardWord()<CR>
-cmap <C-F> <Esc>f
+"cmap <C-F> <Esc>f
 function! <SID>ForwardWord()
     let l:loc = strpart(getcmdline(), 0, getcmdpos() - 1)
     let l:roc = strpart(getcmdline(), getcmdpos() - 1)
@@ -258,7 +243,7 @@ function! <SID>ForwardWord()
 endfunction
 
 cnoremap <Esc>b <C-\>e<SID>BackwardWord()<CR>
-cmap <C-B> <Esc>b
+"cmap <C-B> <Esc>b
 function! <SID>BackwardWord()
     let l:loc = strpart(getcmdline(), 0, getcmdpos() - 1)
     let l:roc = strpart(getcmdline(), getcmdpos() - 1)
@@ -274,78 +259,6 @@ function! <SID>BackwardWord()
     call setcmdpos(strlen(l:loc) - strlen(l:rem) + 1)
     return getcmdline()
 endfunction
-"{{{
-    "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-    " Disable AutoComplPop.
-    let g:acp_enableAtStartup = 0
-    " Use neocomplete.
-    let g:neocomplete#enable_at_startup = 1
-    " Use smartcase.
-    let g:neocomplete#enable_smart_case = 1
-    " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-    " Define dictionary.
-    let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
-
-    " Define keyword.
-    if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
-    endif
-    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-      return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-      " For no inserting <CR> key.
-      "return pumvisible() ? "\<C-y>" : "\<CR>"
-    endfunction
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    " Close popup by <Space>.
-    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-    " AutoComplPop like behavior.
-    "let g:neocomplete#enable_auto_select = 1
-
-    " Shell like behavior(not recommended).
-    "set completeopt+=longest
-    "let g:neocomplete#enable_auto_select = 1
-    "let g:neocomplete#disable_auto_complete = 1
-    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-    " Enable omni completion.
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-    " Enable heavy omni completion.
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-      let g:neocomplete#sources#omni#input_patterns = {}
-    endif
-    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-    " For perlomni.vim setting.
-    " https://github.com/c9s/perlomni.vim
-    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-"}}}
 "nnoremap <Down> <C-e>
 "nnoremap <Up> <C-y>
 nnoremap <C-e> 3<C-e>
@@ -405,3 +318,7 @@ nmap ' ,*
 
 autocmd FileType python nnoremap <buffer> [[ ?^class\\|\v(^\s*def\s+)<CR>
 autocmd FileType python nnoremap <buffer> ]] /^class\\|\v(^\s*def\s+)<CR>
+
+nmap <Leader>v  <Plug>(easyoperator-phrase-select)
+nmap <Leader>d <Plug>(easyoperator-phrase-delete)
+nmap <Leader>y <Plug>(easyoperator-phrase-yank)

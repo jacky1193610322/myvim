@@ -14,6 +14,7 @@ Bundle "tpope/vim-surround"
 Bundle 'altercation/vim-colors-solarized'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'w0rp/ale'
+"Plugin 'ale/cppcheck.vim'
 "Bundle 'rking/ag.vim'
 "Bundle 'shougo/vimshell'
 "Bundle 'shougo/vimproc'
@@ -45,6 +46,7 @@ Bundle 'svermeulen/vim-easyclip'
 Bundle 'kana/vim-textobj-indent'
 Bundle 'kana/vim-textobj-user'
 Bundle 'kana/vim-textobj-entire'
+Bundle 'haya14busa/vim-easyoperator-phrase'
 "Bundle 'chr4/nginx.vim'
 "Bundle 'timakro/vim-searchant'
 "Bundle 'inside/vim-search-pulse'
@@ -175,7 +177,10 @@ endif
 "}}}
 
 
-"{{{ nertcommenter需要的配置
+"{{{ nerttree需要的配置
+" nertcommenter 对其配置
+let NERDDefaultAlign = 'left'
+
 "}}}
 
 "{{{
@@ -249,7 +254,10 @@ endif
     let g:ale_set_loclist = 0
     " 如果这个quickfix 不关闭的话 使用ag查询的时候 使用go命令预览 就会被替换
     let g:ale_set_quickfix = 0
-    let g:ale_linters = {'python': ['flake8']}
+    let g:ale_linters = {'python': ['flake8'], 'c': ['clangtidy']}
+    " 忽略长度的告警
+    let g:ale_python_flake8_args="--ignore=E712,W291 --max-line-length=100"
+
 "}}}
 
 
@@ -295,7 +303,9 @@ endif
       \ 'pandoc' : 1,
       \ 'infolog' : 1,
       \ 'mail' : 1,
-      \ '':1
+      \ '' : 1,
+      \ 'ctrlsf' : 1,
+      \ 'fugitiveblame' : 1
       \}
     let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
     let g:ycm_collect_identifiers_from_tags_files = 1
@@ -314,6 +324,13 @@ endif
 
 "}}}
 
+"tagbar{{{
+" 启动时自动focus
+let g:tagbar_autofocus = 0
+let g:tagbar_autoclose = 1
+let g:tagbar_sort = 0
+
+"}}}`
 
 "{{{  这段代码是解决ycm和snips的tab键冲突的问题
     function! g:UltiSnips_Complete()
@@ -385,3 +402,90 @@ autocmd VimEnter * :EMCommandLineNoreMap <C-v> <C-r>+
     "xmap x <Plug>MoveMotionXPlug
     "nmap xx <Plug>MoveMotionLinePlug
 "}}}
+
+"easymotion{{{
+" Smartsign (type `3` and match `3`&`#`)
+let g:EasyMotion_use_smartsign_us = 1
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+
+"}}}
+
+
+"conoline{{{
+let g:conoline_color_normal_dark = 'ctermbg=236'
+"}}}
+
+"{{{neocomplete
+    "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+    " Disable AutoComplPop.
+    let g:acp_enableAtStartup = 0
+    " Use neocomplete.
+    let g:neocomplete#enable_at_startup = 1
+    " Use smartcase.
+    let g:neocomplete#enable_smart_case = 1
+    " Set minimum syntax keyword length.
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+    " Define dictionary.
+    let g:neocomplete#sources#dictionary#dictionaries = {
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell_hist',
+        \ 'scheme' : $HOME.'/.gosh_completions'
+            \ }
+
+    " Define keyword.
+    if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
+    endif
+    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+    " Plugin key-mappings.
+    inoremap <expr><C-g>     neocomplete#undo_completion()
+    inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+    " Recommended key-mappings.
+    " <CR>: close popup and save indent.
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+      return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+      " For no inserting <CR> key.
+      "return pumvisible() ? "\<C-y>" : "\<CR>"
+    endfunction
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    " Close popup by <Space>.
+    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+    " AutoComplPop like behavior.
+    "let g:neocomplete#enable_auto_select = 1
+
+    " Shell like behavior(not recommended).
+    "set completeopt+=longest
+    "let g:neocomplete#enable_auto_select = 1
+    "let g:neocomplete#disable_auto_complete = 1
+    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+    " Enable omni completion.
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+    " Enable heavy omni completion.
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+      let g:neocomplete#sources#omni#input_patterns = {}
+    endif
+    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+    " For perlomni.vim setting.
+    " https://github.com/c9s/perlomni.vim
+    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+"}}}
+

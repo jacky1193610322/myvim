@@ -47,6 +47,7 @@ Bundle 'kana/vim-textobj-indent'
 Bundle 'kana/vim-textobj-user'
 Bundle 'kana/vim-textobj-entire'
 Bundle 'haya14busa/vim-easyoperator-phrase'
+Plugin 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 "Bundle 'chr4/nginx.vim'
 "Bundle 'timakro/vim-searchant'
 "Bundle 'inside/vim-search-pulse'

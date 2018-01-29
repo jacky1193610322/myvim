@@ -48,6 +48,7 @@ Bundle 'kana/vim-textobj-user'
 Bundle 'kana/vim-textobj-entire'
 Bundle 'haya14busa/vim-easyoperator-phrase'
 Plugin 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+Bundle 'vim-scripts/python_import.vim'
 "Bundle 'chr4/nginx.vim'
 "Bundle 'timakro/vim-searchant'
 "Bundle 'inside/vim-search-pulse'

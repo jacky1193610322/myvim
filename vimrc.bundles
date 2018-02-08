@@ -2,7 +2,7 @@ if &compatible
   set nocompatible
 end
 filetype off
-call plug#begin('~/.vim/Plug')
+call plug#begin('~/.vim/bundle')
 
 " Let Vundle manage Vundle
 Plug 'scrooloose/nerdtree'

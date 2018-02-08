@@ -131,3 +131,5 @@ DISABLE_AUTO_TITLE="true"
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}\007"'
 alias ag="ag --mmap"
 export TERM=xterm-256color
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"

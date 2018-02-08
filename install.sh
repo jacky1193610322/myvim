@@ -53,8 +53,8 @@ lnif() {
 echo "Step1: backing up current vim config"
 today=`date +%Y%m%d`
 if $FOR_VIM; then
-    for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.bundles; do [ -e $i ] && [ ! -L $i ] && mv $i $i.$today; done
-    for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.bundles; do [ -L $i ] && unlink $i ; done
+    for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.bundles $HOME/.zshrc; do [ -e $i ] && [ ! -L $i ] && mv $i $i.$today; done
+    for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.bundles $HOME/.zshrc; do [ -L $i ] && unlink $i ; done
 fi
 if $FOR_NEOVIM; then
     for i in $HOME/.config/nvim $HOME/.config/nvim/init.vim; do [ -e $i ] && [ ! -L $i ] && mv $i $i.$today; done
@@ -64,6 +64,7 @@ fi
 echo "Step2: setting up symlinks"
 if $FOR_VIM; then
     lnif $CURRENT_DIR/vimrc $HOME/.vimrc
+    lnif $CURRENT_DIR/zshrc $HOME/.zshrc
     lnif $CURRENT_DIR/vimrc.bundles $HOME/.vimrc.bundles
     lnif "$CURRENT_DIR/" "$HOME/.vim"
 fi
@@ -104,3 +105,4 @@ sed -i "" '/exec "xnoremap <silent> " . g:UltiSnipsExpandTrigger. " :call UltiSn
 
 # 还需要安装一个东西 用来支持vim 退出时输入法的切换
 brew install fcitx-remote-for-osx --with-osx-pinyin
+brew install autojump

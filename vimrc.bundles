@@ -139,12 +139,22 @@ let python_highlight_all=1
 
 "set showtabline=0
 " 使用ag作为ctrlp的搜索 现在使用rg了
-if executable('ag')
-    let g:ackprg='ag --nogroup --nocolor --hidden -g  --nocolumn'
-    set grepprg=ag\ --nogroup\ --nocolor
-    let g:ctrlp_user_command = 'ag %s -l --nocolor  -g ""'
-    let g:ctrlp_use_caching = 0
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
 endif
+"if executable('rg')
+"  set grepprg=rg\ --color=never
+"  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+"  let g:ctrlp_use_caching = 0
+"endif
+"if executable('rg')
+"    let g:ackprg='rg --nogroup --nocolor --hidden -g  --nocolumn'
+"    set grepprg=rg\ --nogroup\ --nocolor
+"    let g:ctrlp_user_command = 'rg %s -l --nocolor  -g ""'
+"    let g:ctrlp_use_caching = 0
+"endif
 
 "{{{
     "let g:airline#extensions#tabline#enabled = 1

@@ -25,7 +25,7 @@ if has("autocmd")
 endif
 syntax on
 filetype off
-let maplocalleader="/"
+let maplocalleader=","
 "set rtp+=~/.vim/bundle/vundle/
 "call vundle#rc()
 if filereadable(expand("~/.vimrc.bundles"))
@@ -107,8 +107,8 @@ vnoremap <s-tab> <gv
 
 "Bundle之后安装, 仅仅是安装, 要启用哪个主题, 需要在vimrc中显式指定
 
-" colorscheme molokai
-" colorscheme desert
+"colorscheme molokai
+"colorscheme desert
 "syntax enable
 "set background=dark
 "colorscheme solarized

@@ -102,6 +102,8 @@ echo "Install Done!"
 # mark的,n 映射键冲突 以及UltiSnips里面的一个键影响 tab键缩进
 sed -i ""  "/if .*<Plug>MarkClear', 'n')/, /endif/s/^/\"/" $CURRENT_DIR/bundle/Mark--Karkat/plugin/mark.vim
 sed -i "" '/exec "xnoremap <silent> " . g:UltiSnipsExpandTrigger. " :call UltiSnips#SaveLastVisualSelection()<cr>gvs"/s/^/\"/' $CURRENT_DIR/bundle/ultisnips/autoload/UltiSnips/map_keys.vim
+sed -i ""  "/if .*<Plug>PyImportCleanup', 'v')/, /endif/s/^/\"/" $CURRENT_DIR/bundle/python_import.vim/ftplugin/python_import.vim
+sed -i ""  "/if .*<Plug>PyImportCleanup', 'n')/, /endif/s/^/\"/" $CURRENT_DIR/bundle/python_import.vim/ftplugin/python_import.vim
 
 # 还需要安装一个东西 用来支持vim 退出时输入法的切换
 brew install fcitx-remote-for-osx --with-osx-pinyin

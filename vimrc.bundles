@@ -117,7 +117,7 @@ Plug 'vim-scripts/python_import.vim'
 call plug#end()
 
 "ctrlp{{{
-    let g:ctrlp_regexp = 1
+    "let g:ctrlp_regexp = 1
     let g:ctrlp_funky_matchtype = 'path'
     let g:ctrlp_funky_syntax_highlight = 0
     let g:ctrlp_max_height = 15

@@ -322,3 +322,4 @@ autocmd FileType python nnoremap <buffer> ]] /^class\\|\v(^\s*def\s+)<CR>
 nmap <Leader>v  <Plug>(easyoperator-phrase-select)
 nmap <Leader>d <Plug>(easyoperator-phrase-delete)
 nmap <Leader>y <Plug>(easyoperator-phrase-yank)
+let g:syntastic_java_checkers = []

@@ -8,6 +8,7 @@ export ZSH=$HOME/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+#ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -51,7 +52,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump incr  web-search  extract z  osx colored-man-pages)
+plugins=(screen zsh-autosuggestions git autojump incr  web-search  extract z  osx colored-man-pages)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -88,16 +89,16 @@ source $ZSH/oh-my-zsh.sh
 #	 return $(python ~/youdao.py "$@")
 #}
 
-alias gedit="open -e "
-alias chrome="open -a Google\\ Chrome "
-alias pycharm="open -a PyCharm "
-alias photoshop="open -a Adobe\\ Photoshop\\ CS6 "
-alias wechat="open -a WeChat "
-alias dingding="open -a 钉钉 "
-alias code="open -a Visual\\ Studio\\ Code "
-alias vim="mvim -v "
-alias vi="mvim -v "
-alias git-difftool="git difftool --dir-dif --no-symlink -D  "
+alias gedit="open -e"
+alias chrome="open -a Google\\ Chrome"
+alias pycharm="open -a PyCharm"
+alias photoshop="open -a Adobe\\ Photoshop\\ CS6"
+alias wechat="open -a WeChat"
+alias dingding="open -a 钉钉"
+alias code="open -a Visual\\ Studio\\ Code"
+alias vim="mvim -v"
+alias vi="mvim -v"
+alias git-difftool="git difftool --dir-dif --no-symlink -D"
 PATH=/usr/local/bin:$PATH:/usr/local/mysql-shell/bin:/usr/local/bin:/usr/local/Cellar/colordiff/1.0.18/bin
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
@@ -130,6 +131,14 @@ export PATH
 DISABLE_AUTO_TITLE="true"
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}\007"'
 alias ag="ag --mmap"
-export TERM=xterm-256color
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+#export TERM=xterm-256color
+## 设置goroot
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+# 设置gopath
+export GOPATH=/Users/jacky/go
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+#source /usr/local/bin/virtualenvwrapper.sh
+PATH=$PATH:/usr/local/Cellar/jsonschema2pojo/0.5.1/bin/
+alias setproxy="export ALL_PROXY=socks5://127.0.0.1:1080"
+alias unsetproxy="unset ALL_PROXY"
